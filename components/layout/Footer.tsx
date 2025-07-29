@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="space-y-8">
             <div className="flex items-center space-x-2">
               <Brain className="h-8 w-8 text-blue-400" />
-              <span className="text-xl font-bold text-white">detaLabsAI</span>
+              <span className="text-xl font-bold text-white">DetaLabs AI</span>
             </div>
             <p className="text-sm leading-6 text-gray-300">
               Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation
@@ -36,15 +36,15 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <Mail className="h-4 w-4" />
-                <span>contact@detalabsai.com</span>
+                <span>info@detalabsai.com</span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <Phone className="h-4 w-4" />
-                <span>+1 (555) 123-4567</span>
+                <span>+94 (74) 195-7668 </span>
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-300">
                 <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
+                <span>Colombo, SL</span>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-gray-400">&copy; 2024 detaLabsAI. All rights reserved.</p>
+          <p className="text-xs leading-5 text-gray-400">&copy; 2025 DetaLabs AI. All rights reserved.</p>
         </div>
       </div>
     </footer>

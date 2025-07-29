@@ -1,6 +1,7 @@
 import { Users, Target, Award, Lightbulb } from "lucide-react"
 import {Card} from "@/components/ui/card"
 
+
 const values = [
   {
     name: "Innovation",
@@ -28,15 +29,15 @@ const values = [
 
 const team = [
   {
-    name: "Dr. Sarah Chen",
-    role: "CEO & Co-Founder",
-    bio: "Former Google AI researcher with 10+ years in machine learning and deep learning. PhD in Computer Science from Stanford.",
+    name: "Nimantha Bandara",
+    role: "CEO & Founder",
+    bio: "Former FHTS AI researcher with 10+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/placeholder.svg?height=300&width=300",
   },
   {
-    name: "Michael Rodriguez",
+    name: "Dishara Hettiarachchi",
     role: "CTO & Co-Founder",
-    bio: "Ex-Microsoft Principal Engineer specializing in scalable AI systems. MS in AI from MIT.",
+    bio: " Principal Engineer specializing in scalable AI systems. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/placeholder.svg?height=300&width=300",
   },
   {
@@ -62,12 +63,12 @@ export default function About() {
           <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div className="lg:pr-4">
               <div className="lg:max-w-lg">
-                <p className="text-base font-semibold leading-7 text-blue-600">About detaLabsAI</p>
+                <p className="text-base font-semibold leading-7 text-blue-600">About DetaLabs AI</p>
                 <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                   Pioneering the Future of AI
                 </h1>
                 <p className="mt-6 text-xl leading-8 text-gray-700">
-                  Founded in 2016, detaLabsAI has been at the forefront of artificial intelligence innovation, helping
+                  Founded in 2021, DetaLabs AI has been at the forefront of artificial intelligence innovation, helping
                   businesses transform their operations through cutting-edge AI solutions.
                 </p>
               </div>
@@ -142,7 +143,7 @@ export default function About() {
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Leadership Team</h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              Meet the experts behind detaLabsAI's success. Our leadership team brings together decades of experience in
+              Meet the experts behind DetaLabs AI's success. Our leadership team brings together decades of experience in
               AI research, engineering, and business strategy.
             </p>
           </div>
@@ -180,10 +181,10 @@ export default function About() {
             </div>
             <dl className="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { id: 1, name: "Years of Experience", value: "8+" },
+                { id: 1, name: "Years of Experience", value: "4+" },
                 { id: 2, name: "ML Models Deployed", value: "500+" },
                 { id: 3, name: "Happy Clients", value: "200+" },
-                { id: 4, name: "Team Members", value: "50+" },
+                { id: 4, name: "Team Members", value: "10+" },
               ].map((stat, index) => (
                 <div
                   key={stat.id}
