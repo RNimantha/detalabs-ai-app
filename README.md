@@ -1,0 +1,1 @@
+# detalabs-ai-app
