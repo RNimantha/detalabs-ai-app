@@ -26,9 +26,9 @@ const features = [
 
 const stats = [
   { id: 1, name: "ML Models Deployed", value: "500+" },
-  { id: 2, name: "Data Points Processed", value: "10B+" },
+  { id: 2, name: "Data Points Processed", value: "50M+" },
   { id: 3, name: "Happy Clients", value: "200+" },
-  { id: 4, name: "Years of Experience", value: "8+" },
+  { id: 4, name: "Years of Experience", value: "4+" },
 ]
 
 export default function Home() {

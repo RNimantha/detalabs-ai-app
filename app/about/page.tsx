@@ -32,25 +32,25 @@ const team = [
     name: "Nimantha Bandara",
     role: "CEO & Founder",
     bio: "Former FHTS AI researcher with 10+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/nimantha.jpeg?height=500&width=300",
   },
   {
     name: "Dishara Hettiarachchi",
     role: "CTO & Co-Founder",
     bio: " Principal Engineer specializing in scalable AI systems. Msc in AI and Data Science in Sri J'Pura University.",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/dishara.jpeg?height=800&width=300",
   },
   {
     name: "Dr. Emily Watson",
     role: "Head of Data Science",
     bio: "Former Netflix data scientist with expertise in recommendation systems and predictive analytics. PhD in Statistics.",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/IMG_8324.PNG?height=300&width=300",
   },
   {
     name: "David Kim",
     role: "Head of Engineering",
     bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
-    image: "/placeholder.svg?height=300&width=300",
+    image: "/IMG_8324.PNG?height=300&width=300",
   },
 ]
 

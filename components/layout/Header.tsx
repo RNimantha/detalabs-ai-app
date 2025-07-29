@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, X, Brain } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -22,7 +23,14 @@ export default function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-            <Brain className="h-8 w-8 text-blue-600" />
+            {/*<Brain className="h-8 w-8 text-blue-600" />*/}
+            <Image
+              src="/ss.png"
+              alt="DetaLabs AI Logo"
+              width={100}
+              height={100}
+              className="h-8 w-8 object-contain"
+            />
             <span className="text-xl font-bold text-gray-900">DetaLabs AI</span>
           </Link>
         </div>
@@ -62,7 +70,14 @@ export default function Header() {
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-                <Brain className="h-8 w-8 text-blue-600" />
+                {/*<Brain className="h-8 w-8 text-blue-600" />*/}
+                <Image
+              src="/ss.png"
+              alt="DetaLabs AI Logo"
+              width={32}
+              height={32}
+              className="h-8 w-8 object-contain"
+            />
                 <span className="text-xl font-bold text-gray-900">DetaLabs AI</span>
               </Link>
               <button
