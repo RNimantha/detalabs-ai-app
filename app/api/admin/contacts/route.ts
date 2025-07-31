@@ -7,10 +7,10 @@ export async function GET(request: NextRequest) {
     try {
       console.log("Admin contacts API called")
 
-      const contacts = contactQueries.findAll.all()
+      const contacts = await contactQueries.findAll()
       console.log("Found contacts:", contacts.length)
 
-      const stats = contactQueries.getStats.get()
+      const stats = await contactQueries.getStats()
       console.log("Stats:", stats)
 
       return NextResponse.json({

@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Save to database
-    const result = contactQueries.create.run(name, email, subject, message)
-    const submissionId = result.lastInsertRowid
+    const result = await contactQueries.create(name, email, subject, message)
+    const submissionId = result.id
 
     console.log("Contact form submission saved:", {
       id: submissionId,

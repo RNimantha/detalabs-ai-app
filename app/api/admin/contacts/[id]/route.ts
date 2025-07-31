@@ -12,7 +12,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
         return NextResponse.json({ error: "Invalid status" }, { status: 400 })
       }
 
-      contactQueries.updateStatus.run(status, id)
+      await contactQueries.updateStatus(id, status)
 
       return NextResponse.json({ message: "Status updated successfully" })
     } catch (error) {
@@ -26,7 +26,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
   return withAdminAuth(request, async () => {
     try {
       const id = Number.parseInt(params.id)
-      contactQueries.delete.run(id)
+      await contactQueries.delete(id)
 
       return NextResponse.json({ message: "Contact deleted successfully" })
     } catch (error) {

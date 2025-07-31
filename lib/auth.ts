@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs"
 import { randomBytes } from "crypto"
-import { userQueries, sessionQueries, type User } from "./database"
+import { userQueries, sessionQueries } from "./database"
 
 export interface AuthUser {
   id: number
@@ -32,7 +32,7 @@ export async function createSession(userId: number): Promise<string> {
   const sessionId = generateSessionId()
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
 
-  sessionQueries.create.run(sessionId, userId, expiresAt.toISOString())
+  await sessionQueries.create(sessionId, userId, expiresAt.toISOString())
   return sessionId
 }
 
@@ -40,12 +40,12 @@ export async function validateSession(sessionId: string): Promise<AuthUser | nul
   if (!sessionId) return null
 
   // Clean up expired sessions
-  sessionQueries.deleteExpired.run()
+  await sessionQueries.deleteExpired()
 
-  const session = sessionQueries.findById.get(sessionId)
+  const session = await sessionQueries.findById(sessionId)
   if (!session) return null
 
-  const user = userQueries.findById.get(session.user_id) as User
+  const user = await userQueries.findById(session.user_id)
   if (!user) return null
 
   return {
@@ -57,11 +57,11 @@ export async function validateSession(sessionId: string): Promise<AuthUser | nul
 }
 
 export async function deleteSession(sessionId: string): Promise<void> {
-  sessionQueries.delete.run(sessionId)
+  await sessionQueries.delete(sessionId)
 }
 
 export async function authenticateUser(email: string, password: string): Promise<AuthUser> {
-  const user = userQueries.findByEmail.get(email) as User
+  const user = await userQueries.findByEmail(email)
   if (!user) {
     throw new AuthError("Invalid email or password")
   }
@@ -71,7 +71,7 @@ export async function authenticateUser(email: string, password: string): Promise
     throw new AuthError("Invalid email or password")
   }
 
-  userQueries.updateLastLogin.run(user.id)
+  await userQueries.updateLastLogin(user.id)
 
   return {
     id: user.id,
@@ -82,16 +82,16 @@ export async function authenticateUser(email: string, password: string): Promise
 }
 
 export async function registerUser(email: string, password: string, name: string): Promise<AuthUser> {
-  const existingUser = userQueries.findByEmail.get(email)
+  const existingUser = await userQueries.findByEmail(email)
   if (existingUser) {
     throw new AuthError("User with this email already exists")
   }
 
   const hashedPassword = await hashPassword(password)
-  const result = userQueries.create.run(email, hashedPassword, name, "user")
+  const result = await userQueries.create(email, hashedPassword, name, "user")
 
   return {
-    id: result.lastInsertRowid as number,
+    id: result.id,
     email,
     name,
     role: "user",
