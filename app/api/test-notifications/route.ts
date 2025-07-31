@@ -4,6 +4,7 @@ import { sendNotifications } from "@/lib/notifications"
 export async function POST(request: NextRequest) {
   try {
     const testData = {
+      username: "testuser",
       name: "Test User",
       email: "test@example.com",
       subject: "Test Notification",
