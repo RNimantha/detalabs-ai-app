@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/layout/Header"
 import Footer from "@/components/layout/Footer"
+import { AuthProvider } from "@/components/auth/AuthProvider"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -19,7 +20,6 @@ export const metadata: Metadata = {
       "Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation solutions.",
     type: "website",
   },
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -30,11 +30,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </div>
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   )

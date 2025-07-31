@@ -1,4 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { contactQueries } from "@/lib/database"
+import { sendNotifications } from "@/lib/notifications"
 import type { ContactFormData } from "@/lib/types"
 
 export async function POST(request: NextRequest) {
@@ -18,25 +20,51 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
     }
 
-    // Here you would typically:
-    // 1. Save to database
-    // 2. Send email notification
-    // 3. Integrate with CRM
-    // 4. Send confirmation email to user
+    // Save to database
+    const result = await contactQueries.create(name, email, subject, message)
+    const submissionId = result.id
 
-    // For demo purposes, we'll just log the data
-    console.log("Contact form submission:", {
+    console.log("Contact form submission saved:", {
+      id: submissionId,
+      name,
+      email,
+      subject,
+      timestamp: new Date().toISOString(),
+    })
+
+    // Send notifications
+    const notificationData = {
       name,
       email,
       subject,
       message,
-      timestamp: new Date().toISOString(),
-    })
+      submittedAt: new Date().toLocaleString("en-US", {
+        timeZone: "Africa/Nairobi",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
+    }
 
-    // Simulate processing time
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    // Send notifications asynchronously (don't wait for them to complete)
+    sendNotifications(notificationData)
+      .then((results) => {
+        console.log("Notification results:", results)
+      })
+      .catch((error) => {
+        console.error("Error sending notifications:", error)
+      })
 
-    return NextResponse.json({ message: "Message sent successfully" }, { status: 200 })
+    return NextResponse.json(
+      {
+        message: "Message sent successfully",
+        id: submissionId,
+      },
+      { status: 200 },
+    )
   } catch (error) {
     console.error("Contact form error:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
