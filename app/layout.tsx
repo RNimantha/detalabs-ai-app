@@ -9,13 +9,13 @@ import { AuthProvider } from "@/components/auth/AuthProvider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "detaLabsAI - Machine Learning & AI Solutions",
+  title: "DetaLabs AI - Machine Learning & AI Solutions",
   description:
     "Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation solutions.",
-  keywords: "machine learning, AI, data analytics, automation, SaaS, artificial intelligence",
-  authors: [{ name: "detaLabsAI" }],
+  keywords:  "DetaLabs, AI SaaS, machine learning, ML tools, artificial intelligence, data science, DS SaaS, data analytics, predictive analytics, AI automation, cloud AI, AI software, SaaS platform, smart data tools, AI for business, data intelligence, deep learning, AI startup",
+  authors: [{ name: "DetaLabs AI" }],
   openGraph: {
-    title: "detaLabsAI - Machine Learning & AI Solutions",
+    title: "DetaLabs AI - Machine Learning & AI Solutions",
     description:
       "Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation solutions.",
     type: "website",
