@@ -20,6 +20,11 @@ export const metadata: Metadata = {
       "Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation solutions.",
     type: "website",
   },
+  icons: {
+    icon: "/ss.png",      // for most browsers
+    shortcut: "/ss.png",  // for Safari and others
+    apple: "/apple-touch-icon.png", // optional for Apple touch devices
+  },
 }
 
 export default function RootLayout({
