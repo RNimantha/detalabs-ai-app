@@ -17,7 +17,7 @@ export const blogPosts: BlogPost[] = [
     slug: "the-future-of-ai-in-business",
     title: "The Future of AI in Business",
     date: "2024-07-20",
-    author: "Dr. Sarah Chen",
+    author: "Nimantha Bandara",
     excerpt:
       "Explore how artificial intelligence is set to revolutionize various industries and business operations in the coming decade.",
     content: `
@@ -34,7 +34,7 @@ export const blogPosts: BlogPost[] = [
     slug: "data-analytics-for-smarter-decisions",
     title: "Data Analytics for Smarter Decisions",
     date: "2024-07-15",
-    author: "Dr. Emily Watson",
+    author: "Nimantha Bandara",
     excerpt:
       "Learn how leveraging advanced data analytics can empower your organization to make informed, data-driven decisions.",
     content: `
@@ -51,7 +51,7 @@ export const blogPosts: BlogPost[] = [
     slug: "ai-saas-solutions-for-small-businesses",
     title: "AI SaaS Solutions for Small Businesses",
     date: "2024-07-10",
-    author: "Michael Rodriguez",
+    author: "Kasun Amarasinghe",
     excerpt:
       "Discover accessible AI-powered Software as a Service (SaaS) tools that can boost productivity and efficiency for small and medium-sized enterprises.",
     content: `
@@ -68,7 +68,7 @@ export const blogPosts: BlogPost[] = [
     slug: "advanced-ml-techniques-for-enterprise",
     title: "Advanced ML Techniques for Enterprise",
     date: "2024-07-05",
-    author: "David Kim",
+    author: "Dishara Hettiarachchi",
     excerpt:
       "A deep dive into sophisticated machine learning techniques that drive significant value for large enterprises.",
     content: `
@@ -86,6 +86,70 @@ export const blogPosts: BlogPost[] = [
     title: "Securing Your AI Models",
     date: "2024-06-28",
     author: "Dr. Sarah Chen",
+    excerpt: "Best practices for protecting your valuable AI models from adversarial attacks and data breaches.",
+    content: `
+      <p>As AI models become more integral to business operations, their security becomes paramount. Adversarial attacks, data poisoning, and model inversion are just a few of the threats that can compromise the integrity and privacy of your AI systems.</p>
+      <p>Implementing robust security measures for AI models involves a multi-faceted approach. This includes securing the data pipeline from ingestion to deployment, encrypting sensitive data, and employing techniques to detect and mitigate adversarial examples. Regular security audits and penetration testing specifically tailored for AI systems are also crucial.</p>
+      <p>Furthermore, ensuring the ethical use of AI and adhering to data privacy regulations like GDPR and CCPA is not just a compliance issue but a security imperative. A compromised AI model can lead to significant financial losses, reputational damage, and legal repercussions.</p>
+      <p>By adopting a security-first mindset throughout the AI lifecycle, organizations can build resilient and trustworthy AI systems that deliver value without exposing themselves to undue risks.</p>
+    `,
+    image: "/placeholder.svg?height=400&width=600",
+    keywords: ["AI Security", "Cybersecurity", "Data Privacy", "Adversarial Attacks", "MLOps"],
+    isPublic: false,
+  },
+    {
+    slug: "securing-your-ai-models",
+    title: "Securing Your AI Models",
+    date: "2024-06-28",
+    author: "Dr. Sarah Chen",
+    excerpt: "Best practices for protecting your valuable AI models from adversarial attacks and data breaches.",
+    content: `
+      <p>As AI models become more integral to business operations, their security becomes paramount. Adversarial attacks, data poisoning, and model inversion are just a few of the threats that can compromise the integrity and privacy of your AI systems.</p>
+      <p>Implementing robust security measures for AI models involves a multi-faceted approach. This includes securing the data pipeline from ingestion to deployment, encrypting sensitive data, and employing techniques to detect and mitigate adversarial examples. Regular security audits and penetration testing specifically tailored for AI systems are also crucial.</p>
+      <p>Furthermore, ensuring the ethical use of AI and adhering to data privacy regulations like GDPR and CCPA is not just a compliance issue but a security imperative. A compromised AI model can lead to significant financial losses, reputational damage, and legal repercussions.</p>
+      <p>By adopting a security-first mindset throughout the AI lifecycle, organizations can build resilient and trustworthy AI systems that deliver value without exposing themselves to undue risks.</p>
+    `,
+    image: "/placeholder.svg?height=400&width=600",
+    keywords: ["AI Security", "Cybersecurity", "Data Privacy", "Adversarial Attacks", "MLOps"],
+    isPublic: false,
+  },
+    {
+    slug: "securing-your-ai-models",
+    title: "Securing Your AI Models",
+    date: "2024-06-28",
+    author: "Dr. Sarah Chen",
+    excerpt: "Best practices for protecting your valuable AI models from adversarial attacks and data breaches.",
+    content: `
+      <p>As AI models become more integral to business operations, their security becomes paramount. Adversarial attacks, data poisoning, and model inversion are just a few of the threats that can compromise the integrity and privacy of your AI systems.</p>
+      <p>Implementing robust security measures for AI models involves a multi-faceted approach. This includes securing the data pipeline from ingestion to deployment, encrypting sensitive data, and employing techniques to detect and mitigate adversarial examples. Regular security audits and penetration testing specifically tailored for AI systems are also crucial.</p>
+      <p>Furthermore, ensuring the ethical use of AI and adhering to data privacy regulations like GDPR and CCPA is not just a compliance issue but a security imperative. A compromised AI model can lead to significant financial losses, reputational damage, and legal repercussions.</p>
+      <p>By adopting a security-first mindset throughout the AI lifecycle, organizations can build resilient and trustworthy AI systems that deliver value without exposing themselves to undue risks.</p>
+    `,
+    image: "/placeholder.svg?height=400&width=600",
+    keywords: ["AI Security", "Cybersecurity", "Data Privacy", "Adversarial Attacks", "MLOps"],
+    isPublic: false,
+  },
+    {
+    slug: "securing-your-ai-models",
+    title: "Securing Your AI Models",
+    date: "2024-06-28",
+    author: "Dr. Sarah Chen",
+    excerpt: "Best practices for protecting your valuable AI models from adversarial attacks and data breaches.",
+    content: `
+      <p>As AI models become more integral to business operations, their security becomes paramount. Adversarial attacks, data poisoning, and model inversion are just a few of the threats that can compromise the integrity and privacy of your AI systems.</p>
+      <p>Implementing robust security measures for AI models involves a multi-faceted approach. This includes securing the data pipeline from ingestion to deployment, encrypting sensitive data, and employing techniques to detect and mitigate adversarial examples. Regular security audits and penetration testing specifically tailored for AI systems are also crucial.</p>
+      <p>Furthermore, ensuring the ethical use of AI and adhering to data privacy regulations like GDPR and CCPA is not just a compliance issue but a security imperative. A compromised AI model can lead to significant financial losses, reputational damage, and legal repercussions.</p>
+      <p>By adopting a security-first mindset throughout the AI lifecycle, organizations can build resilient and trustworthy AI systems that deliver value without exposing themselves to undue risks.</p>
+    `,
+    image: "/placeholder.svg?height=400&width=600",
+    keywords: ["AI Security", "Cybersecurity", "Data Privacy", "Adversarial Attacks", "MLOps"],
+    isPublic: true,
+  },
+    {
+    slug: "securing-your-ai-models",
+    title: "Securing Your AI Models",
+    date: "2024-06-28",
+    author: "Dishara Hettiarachchi",
     excerpt: "Best practices for protecting your valuable AI models from adversarial attacks and data breaches.",
     content: `
       <p>As AI models become more integral to business operations, their security becomes paramount. Adversarial attacks, data poisoning, and model inversion are just a few of the threats that can compromise the integrity and privacy of your AI systems.</p>

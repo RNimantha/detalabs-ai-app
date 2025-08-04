@@ -129,7 +129,7 @@ export default function BlogPage() {
                       <span className="absolute inset-0" />
                       {post.author}
                     </p>
-                    <p className="text-gray-600">detaLabsAI Team</p>
+                    <p className="text-gray-600">DetaLabs AI Team</p>
                   </div>
                 </div>
               </Card>
@@ -140,7 +140,7 @@ export default function BlogPage() {
         {!isAuthenticated && posts.length < totalPosts && (
           <div className="mt-20 text-center">
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 border border-blue-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Unlock Premium Content</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Unlock Premium Content for FREE</h3>
               <p className="text-lg text-gray-700 mb-6">
                 Sign in to access our full library of {totalPosts - posts.length} exclusive blog posts and advanced AI
                 insights!
@@ -150,7 +150,7 @@ export default function BlogPage() {
                   Sign In to Read More
                 </Button>
                 <Button href="/register" variant="outline" size="lg" className="bg-transparent">
-                  Create Account
+                  Create Account for Free
                 </Button>
               </div>
             </div>
