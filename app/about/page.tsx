@@ -46,12 +46,24 @@ const team = [
   //   bio: "Former Netflix data scientist with expertise in recommendation systems and predictive analytics. PhD in Statistics.",
   //   image: "/IMG_8324.PNG?height=300&width=300",
   // },
-  // {
-  //   name: "David Kim",
-  //   role: "Head of Engineering",
-  //   bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
-  //   image: "/IMG_8324.PNG?height=300&width=300",
-  // },
+  {
+    name: "Kasun Amarasinghe",
+    role: "Head of Engineering",
+    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+    // image: "/IMG_8324.PNG?height=300&width=300",
+  },
+      {
+    name: "Sachin Harashana",
+    role: "Head of Data",
+    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+    // image: "/IMG_8324.PNG?height=300&width=300",
+  },
+      {
+    name: "Janith Perera",
+    role: "Head of Design",
+    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+    // image: "/IMG_8324.PNG?height=300&width=300",
+  },
 ]
 
 export default function About() {
@@ -136,42 +148,7 @@ export default function About() {
           </dl>
         </div>
       </div>
-
-      {/* Team section */}
-      <div className="bg-gray-50 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Leadership Team</h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Meet the experts behind DetaLabs AI's success. Our leadership team brings together decades of experience in
-              AI research, engineering, and business strategy.
-            </p>
-          </div>
-          <ul
-            role="list"
-            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-2"
-          >
-            {team.map((person, index) => (
-              <li key={person.name} className={`animate-fade-in`} style={{ animationDelay: `${index * 0.1}s` }}>
-                <Card>
-                  <img
-                    className="aspect-[3/2] w-full rounded-2xl object-cover"
-                    src={person.image || "/placeholder.svg"}
-                    alt={person.name}
-                  />
-                  <div className="mt-6">
-                    <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">{person.name}</h3>
-                    <p className="text-base leading-7 text-blue-600">{person.role}</p>
-                    <p className="mt-4 text-base leading-7 text-gray-600">{person.bio}</p>
-                  </div>
-                </Card>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Stats section */}
+            {/* Stats section */}
       <div className="bg-white py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:max-w-none">
@@ -199,6 +176,41 @@ export default function About() {
           </div>
         </div>
       </div>
+      {/* Team section */}
+      <div className="bg-gray-50 py-24 sm:py-32">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Leadership Team</h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+              Meet the experts behind DetaLabs AI's success. Our leadership team brings together decades of experience in
+              AI research, engineering, and business strategy.
+            </p>
+          </div>
+          <ul
+            role="list"
+            className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            {team.map((person, index) => (
+              <li key={person.name} className={`animate-fade-in`} style={{ animationDelay: `${index * 0.1}s` }}>
+                <Card>
+                  <img
+                    className="aspect-[3/2] w-full rounded-2xl object-cover"
+                    src={person.image || "/placeholder.svg"}
+                    alt={person.name}
+                  />
+                  <div className="mt-6">
+                    <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">{person.name}</h3>
+                    <p className="text-base leading-7 text-blue-600">{person.role}</p>
+                    <p className="mt-4 text-base leading-7 text-gray-600">{person.bio}</p>
+                  </div>
+                </Card>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+
     </div>
   )
 }

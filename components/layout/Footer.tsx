@@ -27,13 +27,13 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
             <div className="flex items-center space-x-2">
-             <Image
-              src="/ss.png"
-              alt="DetaLabs AI Logo"
-              width={100}
-              height={100}
-              className="h-8 w-8 object-contain"
-            />
+            {/* <Image*/}
+            {/*  src="/ss.png"*/}
+            {/*  alt="DetaLabs AI Logo"*/}
+            {/*  width={100}*/}
+            {/*  height={100}*/}
+            {/*  className="h-8 w-8 object-contain"*/}
+            {/*/>*/}
               <span className="text-xl font-bold text-white">DetaLabs AI</span>
             </div>
             <p className="text-sm leading-6 text-gray-300">
