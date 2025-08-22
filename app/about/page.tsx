@@ -30,15 +30,17 @@ const values = [
 const team = [
   {
     name: "Nimantha Bandara",
-    role: "CEO & Founder",
-    bio: "Former FHTS AI researcher with 10+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
+    role: "Founder & CEO ",
+    bio: "Current FHTS  AI Consultant with 6+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/nimantha.jpeg?height=500&width=300",
+    link:'https://nimantha.detalabsai.com/'
   },
   {
     name: "Dishara Hettiarachchi",
     role: "CTO & Co-Founder",
     bio: " Principal Engineer specializing in scalable AI systems. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/dishara.jpeg?height=800&width=300",
+    link: 'https://www.linkedin.com/in/disharahettiarachchi/'
   },
   // {
   //   name: "Dr. Emily Watson",
@@ -46,24 +48,24 @@ const team = [
   //   bio: "Former Netflix data scientist with expertise in recommendation systems and predictive analytics. PhD in Statistics.",
   //   image: "/IMG_8324.PNG?height=300&width=300",
   // },
-  {
-    name: "Kasun Amarasinghe",
-    role: "Head of Engineering",
-    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
-    // image: "/IMG_8324.PNG?height=300&width=300",
-  },
-      {
-    name: "Sachin Harashana",
-    role: "Head of Data",
-    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
-    // image: "/IMG_8324.PNG?height=300&width=300",
-  },
-      {
-    name: "Janith Perera",
-    role: "Head of Design",
-    bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
-    // image: "/IMG_8324.PNG?height=300&width=300",
-  },
+  // {
+  //   name: "Kasun Amarasinghe",
+  //   role: "Head of Engineering",
+  //   bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+  //   // image: "/IMG_8324.PNG?height=300&width=300",
+  // },
+  //     {
+  //   name: "Sachin Harashana",
+  //   role: "Head of Data",
+  //   bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+  //   // image: "/IMG_8324.PNG?height=300&width=300",
+  // },
+  //     {
+  //   name: "Janith Perera",
+  //   role: "Head of Design",
+  //   bio: "Former Amazon senior engineer with 8+ years building large-scale distributed systems and ML infrastructure.",
+  //   // image: "/IMG_8324.PNG?height=300&width=300",
+  // },
 ]
 
 export default function About() {
@@ -199,7 +201,14 @@ export default function About() {
                     alt={person.name}
                   />
                   <div className="mt-6">
-                    <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">{person.name}</h3>
+                    <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900"><a 
+                      href={person.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="hover:underline"
+                    >
+                      {person.name}
+                    </a></h3>
                     <p className="text-base leading-7 text-blue-600">{person.role}</p>
                     <p className="mt-4 text-base leading-7 text-gray-600">{person.bio}</p>
                   </div>
