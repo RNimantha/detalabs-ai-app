@@ -1,5 +1,7 @@
 import { Users, Target, Award, Lightbulb } from "lucide-react"
+import { Github as GitHub, Linkedin as LinkedIn } from "lucide-react";
 import {Card} from "@/components/ui/card"
+
 
 
 const values = [
@@ -33,14 +35,18 @@ const team = [
     role: "Founder & CEO ",
     bio: "Current FHTS  AI Consultant with 6+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/nimantha.jpeg?height=500&width=300",
-    link:'https://nimantha.detalabsai.com/'
+    link:'https://nimantha.detalabsai.com/',
+    github: 'https://github.com/RNimantha',
+    linkedin: 'https://www.linkedin.com/in/nimantha-bandara-986192132/'
   },
   {
     name: "Dishara Hettiarachchi",
     role: "CTO & Co-Founder",
     bio: " Principal Engineer specializing in scalable AI systems. Msc in AI and Data Science in Sri J'Pura University.",
     image: "/dishara.jpeg?height=800&width=300",
-    link: 'https://www.linkedin.com/in/disharahettiarachchi/'
+    link: 'https://www.linkedin.com/in/disharahettiarachchi/',
+    github: '',
+    linkedin: 'https://www.linkedin.com/in/disharahettiarachchi/'
   },
   // {
   //   name: "Dr. Emily Watson",
@@ -211,6 +217,26 @@ export default function About() {
                     </a></h3>
                     <p className="text-base leading-7 text-blue-600">{person.role}</p>
                     <p className="mt-4 text-base leading-7 text-gray-600">{person.bio}</p>
+                    <div className="mt-4 flex space-x-4">
+      
+                        <a 
+                          href={person.github} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-gray-600 hover:text-black"
+                        >
+                          <GitHub className="h-6 w-6" />
+                        </a>
+                        
+                        <a 
+                          href={person.linkedin} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-gray-600 hover:text-blue-700"
+                        >
+                          <LinkedIn className="h-6 w-6" />
+                        </a>
+                      </div>
                   </div>
                 </Card>
               </li>
