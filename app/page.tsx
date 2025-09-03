@@ -40,9 +40,9 @@ const stats = [
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Chen",
-    title: "CTO at TechFlow",
-    company: "TechFlow Solutions",
+    name: "Chamara Karunathilaka",
+    title: "CEO at FHTS",
+    company: "FHTS",
     rating: 5,
     text: "DetaLabs AI transformed our data analytics completely. Their machine learning models increased our prediction accuracy by 40% and saved us countless hours of manual analysis.",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face"
@@ -51,19 +51,19 @@ const testimonials = [
     id: 2,
     name: "Michael Rodriguez",
     title: "VP of Operations",
-    company: "InnovateCorp",
+    company: "University of Toledo",
     rating: 5,
     text: "The AI automation solutions provided by DetaLabs have revolutionized our workflow. We've seen a 60% reduction in processing time and unprecedented accuracy in our operations.",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+    avatar: "https://images.unsplash.com/photo1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
   },
   {
     id: 3,
     name: "Emily Watson",
     title: "Data Scientist",
-    company: "DataVision Inc",
+    company: "Mortar AI",
     rating: 5,
-    text: "Working with DetaLabs was a game-changer. Their expertise in AI and data science helped us unlock insights we never thought possible. Highly recommend their services!",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+    text: "Working with Nimantha and DetaLabs was a game-changer. Their expertise in AI and data science helped us unlock insights we never thought possible. Highly recommend their services!",
+    avatar: "https://images.unsplash.com/phoo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
   },
   {
     id: 4,
@@ -71,8 +71,8 @@ const testimonials = [
     title: "Founder & CEO",
     company: "StartupLab",
     rating: 5,
-    text: "DetaLabs AI didn't just deliver a solution; they delivered a competitive advantage. Their SaaS tools are intuitive, powerful, and have scaled perfectly with our growth.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+    text: "DetaLabs team didn't just deliver a solution; they delivered a competitive advantage. Their SaaS tools are intuitive, powerful, and have scaled perfectly with our growth.",
+    avatar: "https://imaes.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
   },
   {
     id: 5,
@@ -81,7 +81,7 @@ const testimonials = [
     company: "MetricsMax",
     rating: 5,
     text: "The team at DetaLabs understands both the technical and business sides of AI implementation. Their solutions are not just cutting-edge but also practical and results-driven.",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+    avatar: "https://images.unslash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
   }
 ];
 
@@ -319,7 +319,7 @@ export default function Home() {
                 Explore Services
               </Button>
               <Button href="/contact" variant="outline" size="lg">
-                Get Started <ArrowRight className="ml-2 h-4 w-4" />
+                Book FREE Consultation <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </motion.div>
