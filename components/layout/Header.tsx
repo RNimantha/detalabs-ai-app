@@ -142,14 +142,24 @@ export default function Header() {
                       </Button>
                     </div>
                   ) : (
-                    <div className="space-y-4">
-                      <Button href="/login" variant="outline" className="w-full bg-transparent border-purple-400/50 text-purple-300">
-                        Sign In
-                      </Button>
-                      <Button href="/contact" variant="primary" className="w-full bg-gradient-to-r from-cyan-500 to-blue-500">
-                        Get Started
-                      </Button>
-                    </div>
+                    <div className="flex flex-col space-y-4">
+                          <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                            <Button
+                              variant="outline"
+                              className="w-full bg-transparent border-purple-400/50 text-purple-300"
+                            >
+                              Sign In
+                            </Button>
+                          </Link>
+                          <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                            <Button
+                              variant="primary"
+                              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500"
+                            >
+                              Get Started
+                            </Button>
+                          </Link>
+                        </div>
                   )}
                 </div>
               </div>
