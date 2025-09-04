@@ -34,7 +34,7 @@ const team = [
     name: "Nimantha Bandara",
     role: "Founder & CEO ",
     bio: "Current FHTS  AI Consultant with 6+ years in machine learning and deep learning. Msc in AI and Data Science in Sri J'Pura University.",
-    image: "/nimantha.jpeg?height=500&width=300",
+    image: "/nimantha.jpg?height=500&width=300",
     link:'https://nimantha.detalabsai.com/',
     github: 'https://github.com/RNimantha',
     linkedin: 'https://www.linkedin.com/in/nimantha-bandara-986192132/'
