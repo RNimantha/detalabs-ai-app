@@ -20,15 +20,15 @@ const navigation = {
   ],
   resources: [
     { name: "Blog", href: "/blog" },
-    { name: "Case Studies", href: "/case-studies" },
-    { name: "Documentation", href: "/docs" },
-    { name: "API Reference", href: "/api" },
+    { name: "Case Studies", href: "/undermaintain" },
+    { name: "Documentation", href: "/undermaintain" },
+    { name: "API Reference", href: "/undermaintain" },
   ],
   legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-    { name: "Security", href: "/security" },
+    { name: "Privacy Policy", href: "/undermaintain" },
+    { name: "Terms of Service", href: "/undermaintain" },
+    { name: "Cookie Policy", href: "/undermaintain" },
+    { name: "Security", href: "/undermaintain" },
   ],
   social: [
     { name: "Twitter", href: "#", icon: Twitter },
@@ -107,7 +107,7 @@ export default function Footer() {
                 <div className="p-2 rounded-lg bg-white/10 group-hover:bg-cyan-500/20 transition-colors">
                   <MapPin className="h-4 w-4" />
                 </div>
-                <span>Colombo, SL</span>
+                <span>Colombo, Sri Lanka</span>
               </div>
             </div>
 

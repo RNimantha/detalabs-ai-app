@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/components/auth/AuthProvider"
 
 const navigation = [
+  { name: "Home", href: "/" },
   { name: "Services", href: "/services" },
   { name: "About", href: "/about" },
   { name: "Blog", href: "/blog" },

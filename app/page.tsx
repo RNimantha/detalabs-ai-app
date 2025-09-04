@@ -505,16 +505,16 @@ export default function Home() {
         custom={2}
       >
         <Button href="/contact" variant="secondary" size="lg" className="bg-cyan-400 text-slate-800 hover:bg-cyan-300">
-          Get in touch
+          Book FREE Consultation
         </Button>
-        <Button
+        {/* <Button
           href="/services"
           variant="outline"
           size="lg"
           className="border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-slate-800 bg-transparent"
         >
           Learn more
-        </Button>
+        </Button> */}
       </motion.div>
     </div>
   </div>
