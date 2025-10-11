@@ -109,8 +109,8 @@ export const userQueries = {
 
   create: async (email: string, password: string, name: string, role = "user") => {
     const result = await sql`
-      INSERT INTO users (email, password, name, role) 
-      VALUES (${email}, ${password}, ${name}, ${role})
+      INSERT INTO users (email, password, name, role, updated_at) 
+      VALUES (${email}, ${password}, ${name}, ${role}, CURRENT_TIMESTAMP)
       RETURNING id
     `
     return result[0]
