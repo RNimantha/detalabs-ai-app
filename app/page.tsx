@@ -40,9 +40,9 @@ const stats = [
 const testimonials = [
   {
     id: 1,
-    name: "Chamara Karunathilaka",
-    title: "CEO at FHTS",
-    company: "FHTS",
+    name: "Chamara Silva",
+    title: "CEO at FlexiTech",
+    company: "FlexiTech",
     rating: 5,
     text: "DetaLabs AI transformed our data analytics completely. Their machine learning models increased our prediction accuracy by 40% and saved us countless hours of manual analysis.",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face"
@@ -60,7 +60,7 @@ const testimonials = [
     id: 3,
     name: "Emily Watson",
     title: "Data Scientist",
-    company: "Mortar AI",
+    company: "FlexiTech AI",
     rating: 5,
     text: "Working with Nimantha and DetaLabs was a game-changer. Their expertise in AI and data science helped us unlock insights we never thought possible. Highly recommend their services!",
     avatar: "https://images.unsplash.com/phoo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
