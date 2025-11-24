@@ -6,6 +6,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
   Mail,
   Trash2,
   Eye,
@@ -16,6 +22,7 @@ import {
   ArrowLeft,
   Filter,
   X,
+  ChevronRight,
 } from "lucide-react"
 import type { ContactSubmission } from "@/lib/contact-db"
 
@@ -265,82 +272,105 @@ export default function AdminContacts() {
           </Button>
         </div>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Submissions List */}
-          <div className="lg:col-span-2 space-y-4">
-            {filteredSubmissions.length === 0 ? (
-              <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-8 text-center">
-                <Mail className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400">No contact submissions found</p>
-              </Card>
-            ) : (
-              filteredSubmissions.map((submission) => (
-                <Card
-                  key={submission.id}
-                  className={`bg-slate-900/60 backdrop-blur-xl border ${
-                    selectedSubmission?.id === submission.id
-                      ? "border-cyan-500/50"
-                      : "border-white/10 hover:border-cyan-500/30"
-                  } p-6 cursor-pointer transition-all`}
-                  onClick={() => setSelectedSubmission(submission)}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="text-lg font-semibold text-white">{submission.name}</h3>
+        {/* Submissions Table */}
+        <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 overflow-hidden">
+          {filteredSubmissions.length === 0 ? (
+            <div className="p-8 text-center">
+              <Mail className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+              <p className="text-gray-400">No contact submissions found</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-800/50 border-b border-white/10">
+                  <tr>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Name</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Email</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Subject</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                    <th className="px-4 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/10">
+                  {filteredSubmissions.map((submission) => (
+                    <tr
+                      key={submission.id}
+                      className="bg-slate-900/30 hover:bg-slate-800/50 cursor-pointer transition-colors"
+                      onClick={() => setSelectedSubmission(submission)}
+                    >
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="text-sm font-medium text-white">{submission.name}</div>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="text-sm text-cyan-400">{submission.email}</div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="text-sm text-gray-300 max-w-xs truncate">
+                          {submission.subject || <span className="text-gray-500">No subject</span>}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium border flex items-center gap-1 ${getStatusColor(
+                          className={`px-2 py-1 rounded-full text-xs font-medium border flex items-center gap-1 w-fit ${getStatusColor(
                             submission.status
                           )}`}
                         >
                           {getStatusIcon(submission.status)}
                           {submission.status}
                         </span>
-                      </div>
-                      <p className="text-cyan-400 text-sm mb-1">{submission.email}</p>
-                      {submission.subject && (
-                        <p className="text-gray-300 font-medium mb-2">{submission.subject}</p>
-                      )}
-                      <p className="text-gray-400 text-sm line-clamp-2">{submission.message}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <span className="text-xs text-gray-500">
-                      {new Date(submission.created_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </span>
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50 h-7 px-2"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDelete(submission.id)
-                        }}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              ))
-            )}
-          </div>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        <div className="text-sm text-gray-400">
+                          {new Date(submission.created_at).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 whitespace-nowrap text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-gray-400 hover:text-white"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setSelectedSubmission(submission)
+                            }}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleDelete(submission.id)
+                            }}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Card>
 
-          {/* Detail Panel */}
-          <div className="lg:col-span-1">
-            {selectedSubmission ? (
-              <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6 sticky top-8">
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-xl font-bold text-white">Submission Details</h2>
+        {/* Detail Modal */}
+        <Dialog open={!!selectedSubmission} onOpenChange={(open) => !open && setSelectedSubmission(null)}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-slate-900/95 backdrop-blur-xl border border-white/20">
+            {selectedSubmission && (
+              <>
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold text-white flex items-center justify-between">
+                    <span>Contact Submission Details</span>
                     <Button
                       size="sm"
                       variant="ghost"
@@ -349,105 +379,101 @@ export default function AdminContacts() {
                     >
                       <X className="h-4 w-4" />
                     </Button>
-                  </div>
-                  <div className="space-y-4">
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 mt-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-gray-400">Name</label>
+                      <label className="text-sm text-gray-400 mb-1 block">Name</label>
                       <p className="text-white font-medium">{selectedSubmission.name}</p>
                     </div>
                     <div>
-                      <label className="text-sm text-gray-400">Email</label>
-                      <p className="text-cyan-400">{selectedSubmission.email}</p>
+                      <label className="text-sm text-gray-400 mb-1 block">Email</label>
+                      <p className="text-cyan-400 break-all">{selectedSubmission.email}</p>
                     </div>
-                    {selectedSubmission.subject && (
-                      <div>
-                        <label className="text-sm text-gray-400">Subject</label>
-                        <p className="text-white">{selectedSubmission.subject}</p>
-                      </div>
-                    )}
+                  </div>
+                  {selectedSubmission.subject && (
                     <div>
-                      <label className="text-sm text-gray-400">Message</label>
-                      <p className="text-white whitespace-pre-wrap bg-slate-800/50 p-3 rounded border border-white/10">
-                        {selectedSubmission.message}
-                      </p>
+                      <label className="text-sm text-gray-400 mb-1 block">Subject</label>
+                      <p className="text-white">{selectedSubmission.subject}</p>
                     </div>
-                    <div>
-                      <label className="text-sm text-gray-400">Submitted</label>
-                      <p className="text-gray-300 text-sm">
-                        {new Date(selectedSubmission.created_at).toLocaleString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
+                  )}
+                  <div>
+                    <label className="text-sm text-gray-400 mb-1 block">Message</label>
+                    <div className="text-white whitespace-pre-wrap bg-slate-800/50 p-4 rounded-lg border border-white/10 max-h-64 overflow-y-auto">
+                      {selectedSubmission.message}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-400 mb-1 block">Submitted</label>
+                    <p className="text-gray-300">
+                      {new Date(selectedSubmission.created_at).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                  <div className="border-t border-white/10 pt-4">
+                    <label className="text-sm text-gray-400 mb-3 block">Update Status</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button
+                        size="sm"
+                        variant={selectedSubmission.status === "read" ? "default" : "outline"}
+                        onClick={() => handleStatusUpdate(selectedSubmission.id, "read")}
+                        className={
+                          selectedSubmission.status === "read"
+                            ? "bg-blue-500 hover:bg-blue-600"
+                            : "bg-slate-800/50 border-white/10 text-white"
+                        }
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        Mark as Read
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant={selectedSubmission.status === "replied" ? "default" : "outline"}
+                        onClick={() => handleStatusUpdate(selectedSubmission.id, "replied")}
+                        className={
+                          selectedSubmission.status === "replied"
+                            ? "bg-green-500 hover:bg-green-600"
+                            : "bg-slate-800/50 border-white/10 text-white"
+                        }
+                      >
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        Mark as Replied
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant={selectedSubmission.status === "archived" ? "default" : "outline"}
+                        onClick={() => handleStatusUpdate(selectedSubmission.id, "archived")}
+                        className={
+                          selectedSubmission.status === "archived"
+                            ? "bg-gray-500 hover:bg-gray-600"
+                            : "bg-slate-800/50 border-white/10 text-white"
+                        }
+                      >
+                        <Archive className="h-4 w-4 mr-2" />
+                        Archive
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleDelete(selectedSubmission.id)}
+                        className="bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
+                      >
+                        <Trash2 className="h-4 w-4 mr-2" />
+                        Delete
+                      </Button>
                     </div>
                   </div>
                 </div>
-
-                <div className="space-y-2 border-t border-white/10 pt-4">
-                  <label className="text-sm text-gray-400 mb-2 block">Update Status</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button
-                      size="sm"
-                      variant={selectedSubmission.status === "read" ? "default" : "outline"}
-                      onClick={() => handleStatusUpdate(selectedSubmission.id, "read")}
-                      className={
-                        selectedSubmission.status === "read"
-                          ? "bg-blue-500 hover:bg-blue-600"
-                          : "bg-slate-800/50 border-white/10 text-white"
-                      }
-                    >
-                      <Eye className="h-3 w-3 mr-1" />
-                      Read
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant={selectedSubmission.status === "replied" ? "default" : "outline"}
-                      onClick={() => handleStatusUpdate(selectedSubmission.id, "replied")}
-                      className={
-                        selectedSubmission.status === "replied"
-                          ? "bg-green-500 hover:bg-green-600"
-                          : "bg-slate-800/50 border-white/10 text-white"
-                      }
-                    >
-                      <CheckCircle className="h-3 w-3 mr-1" />
-                      Replied
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant={selectedSubmission.status === "archived" ? "default" : "outline"}
-                      onClick={() => handleStatusUpdate(selectedSubmission.id, "archived")}
-                      className={
-                        selectedSubmission.status === "archived"
-                          ? "bg-gray-500 hover:bg-gray-600"
-                          : "bg-slate-800/50 border-white/10 text-white"
-                      }
-                    >
-                      <Archive className="h-3 w-3 mr-1" />
-                      Archive
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleDelete(selectedSubmission.id)}
-                      className="bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-                    >
-                      <Trash2 className="h-3 w-3 mr-1" />
-                      Delete
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            ) : (
-              <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-8 text-center">
-                <Mail className="h-12 w-12 text-gray-500 mx-auto mb-4" />
-                <p className="text-gray-400">Select a submission to view details</p>
-              </Card>
+              </>
             )}
-          </div>
-        </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   )

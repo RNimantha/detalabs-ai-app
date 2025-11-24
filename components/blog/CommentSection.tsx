@@ -76,13 +76,13 @@ export default function CommentSection({ slug }: CommentSectionProps) {
 
   return (
     <div className="mt-12">
-      <h2 className="text-2xl font-bold mb-6">Comments ({comments.length})</h2>
+      <h2 className="text-2xl font-bold mb-6 text-white">Comments ({comments.length})</h2>
 
       {/* Comment Form */}
-      <Card className="p-6 mb-8">
+      <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6 mb-8">
         {submitted ? (
           <div className="text-center py-4">
-            <p className="text-green-600 font-medium">
+            <p className="text-green-400 font-medium">
               ✓ Comment submitted! It will be visible after admin approval.
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function CommentSection({ slug }: CommentSectionProps) {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="author_name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="author_name" className="block text-sm font-medium text-gray-300 mb-1">
                   Name *
                 </label>
                 <Input
@@ -99,10 +99,11 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                   onChange={(e) => setFormData({ ...formData, author_name: e.target.value })}
                   required
                   placeholder="Your name"
+                  className="bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                 />
               </div>
               <div>
-                <label htmlFor="author_email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="author_email" className="block text-sm font-medium text-gray-300 mb-1">
                   Email *
                 </label>
                 <Input
@@ -112,11 +113,12 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                   onChange={(e) => setFormData({ ...formData, author_email: e.target.value })}
                   required
                   placeholder="your@email.com"
+                  className="bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="content" className="block text-sm font-medium text-gray-300 mb-1">
                 Comment *
               </label>
               <Textarea
@@ -126,9 +128,14 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                 required
                 placeholder="Write your comment here..."
                 rows={4}
+                className="bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
               />
             </div>
-            <Button type="submit" disabled={submitting} className="flex items-center gap-2">
+            <Button 
+              type="submit" 
+              disabled={submitting} 
+              className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
+            >
               {submitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -151,17 +158,17 @@ export default function CommentSection({ slug }: CommentSectionProps) {
           <Loader2 className="h-6 w-6 animate-spin mx-auto text-gray-400" />
         </div>
       ) : comments.length === 0 ? (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400">
           <p>No comments yet. Be the first to comment!</p>
         </div>
       ) : (
         <div className="space-y-4">
           {comments.map((comment) => (
-            <Card key={comment.id} className="p-6">
+            <Card key={comment.id} className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6">
               <div className="flex items-start justify-between mb-2">
                 <div>
-                  <h3 className="font-semibold text-gray-900">{comment.author_name}</h3>
-                  <p className="text-sm text-gray-500">
+                  <h3 className="font-semibold text-white">{comment.author_name}</h3>
+                  <p className="text-sm text-gray-400">
                     {new Date(comment.created_at).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -172,7 +179,7 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                   </p>
                 </div>
               </div>
-              <p className="text-gray-700 whitespace-pre-wrap">{comment.content}</p>
+              <p className="text-gray-200 whitespace-pre-wrap">{comment.content}</p>
             </Card>
           ))}
         </div>
