@@ -1,31 +1,36 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { withAdminAuth } from "@/lib/middleware"
-import { contactQueries } from "@/lib/database"
+import { NextRequest, NextResponse } from 'next/server'
+import { validateAdminSession } from '@/lib/admin-auth'
+import { getAllContactSubmissions, getContactStats } from '@/lib/contact-db'
 
 export async function GET(request: NextRequest) {
-  return withAdminAuth(request, async () => {
-    try {
-      console.log("Admin contacts API called")
+  try {
+    const sessionToken = request.cookies.get('admin_session')?.value
 
-      const contacts = await contactQueries.findAll()
-      console.log("Found contacts:", contacts.length)
-
-      const stats = await contactQueries.getStats()
-      console.log("Stats:", stats)
-
-      return NextResponse.json({
-        contacts,
-        stats,
-      })
-    } catch (error) {
-      console.error("Error fetching contacts:", error)
-      return NextResponse.json(
-        {
-          error: "Internal server error",
-          details: error instanceof Error ? error.message : "Unknown error",
-        },
-        { status: 500 },
-      )
+    if (!sessionToken) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-  })
+
+    const admin = await validateAdminSession(sessionToken)
+    if (!admin) {
+      return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
+    }
+
+    const { searchParams } = new URL(request.url)
+    const statsOnly = searchParams.get('stats') === 'true'
+
+    if (statsOnly) {
+      const stats = await getContactStats()
+      return NextResponse.json(stats)
+    }
+
+    const submissions = await getAllContactSubmissions()
+    return NextResponse.json(submissions)
+  } catch (error) {
+    console.error('Error fetching contact submissions:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch contact submissions' },
+      { status: 500 }
+    )
+  }
 }
+

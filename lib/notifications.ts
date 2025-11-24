@@ -12,8 +12,17 @@ const emailTransporter = nodemailer.createTransport({
   },
 })
 
-// Twilio configuration for WhatsApp
-const twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN)
+// Twilio configuration for WhatsApp (lazy initialization)
+function getTwilioClient() {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID
+  const authToken = process.env.TWILIO_AUTH_TOKEN
+  
+  if (!accountSid || !authToken) {
+    return null
+  }
+  
+  return twilio(accountSid, authToken)
+}
 
 interface ContactNotificationData {
   name: string
@@ -50,7 +59,7 @@ export async function sendEmailNotification(data: ContactNotificationData): Prom
           
           <div style="margin-top: 30px; padding: 15px; background-color: #dbeafe; border-radius: 8px;">
             <p style="margin: 0; color: #1e40af; font-size: 14px;">
-              <strong>Action Required:</strong> Please respond to this inquiry within 24 hours.
+              <strong>Action Required:</strong> Please respond to this inquiry within 2 hours.
               You can reply directly to <a href="mailto:${data.email}">${data.email}</a>
             </p>
           </div>
@@ -71,7 +80,7 @@ Submitted: ${data.submittedAt}
 Message:
 ${data.message}
 
-Please respond to this inquiry within 24 hours.
+Please respond to this inquiry within 2 hours.
       `,
     }
 
@@ -86,6 +95,13 @@ Please respond to this inquiry within 24 hours.
 
 export async function sendWhatsAppNotification(data: ContactNotificationData): Promise<boolean> {
   try {
+    const twilioClient = getTwilioClient()
+    
+    if (!twilioClient) {
+      console.log("WhatsApp notification skipped: Twilio credentials not configured")
+      return false
+    }
+
     const message = `🔔 *New Contact Form Submission*
 
 👤 *Name:* ${data.name}
@@ -97,7 +113,7 @@ export async function sendWhatsAppNotification(data: ContactNotificationData): P
 ${data.message}
 
 ---
-Please respond within 24 hours.
+Please respond within 2 hours.
 detaLabsAI Contact System`
 
     await twilioClient.messages.create({

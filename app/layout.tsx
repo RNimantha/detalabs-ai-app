@@ -2,9 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/layout/Header"
-import Footer from "@/components/layout/Footer"
-import { AuthProvider } from "@/components/auth/AuthProvider"
+import ConditionalLayout from "@/components/layout/ConditionalLayout"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -21,9 +19,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/ss.png",      // for most browsers
-    shortcut: "/ss.png",  // for Safari and others
-    apple: "/apple-touch-icon.png", // optional for Apple touch devices
+    icon: "/logo.png",      // for most browsers
+    shortcut: "/logo.png",  // for Safari and others
+    apple: "/logo.png", // optional for Apple touch devices
   },
 }
 
@@ -35,13 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <AuthProvider>
-          <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-        </AuthProvider>
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   )

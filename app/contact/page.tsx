@@ -2,12 +2,22 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {Input} from "@/components/ui/input"
-import {Textarea} from "@/components/ui/textarea"
-import {Card} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Card } from "@/components/ui/card"
 import type { ContactFormData } from "@/lib/types"
+import { motion } from "framer-motion"
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" },
+  }),
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -51,136 +61,194 @@ export default function Contact() {
     }
   }
 
+  const contactInfo = [
+    {
+      icon: Mail,
+      title: "Email",
+      content: "info@detalabsai.com",
+      subtitle: "We'll respond within 2 hours",
+    },
+    {
+      icon: Phone,
+      title: "Phone",
+      content: "+94 (74) 195-7668",
+      subtitle: "Mon-Fri from 8am to 5pm IST",
+    },
+    {
+      icon: MapPin,
+      title: "Office",
+      content: "9/2 Divulpitiya-Bellanwila Road, Colombo, 94105",
+      subtitle: "",
+    },
+    {
+      icon: Clock,
+      title: "Business Hours",
+      content: "Monday - Friday: 8:00 AM - 5:00 PM PST",
+      subtitle: "Weekend: By appointment",
+    },
+  ]
+
   return (
-    <div className="bg-white">
-      <div className="relative isolate px-6 py-24 sm:py-32 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Us</h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Ready to transform your business with AI? Let's discuss your project and explore how we can help.
+    <div className="relative z-10 py-24 sm:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          className="mx-auto max-w-2xl text-center"
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+        >
+          <h2 className="text-base font-semibold leading-7 text-cyan-400">Get in Touch</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            Ready to transform your business with AI?
           </p>
-        </div>
-        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-16 lg:grid-cols-2">
-          {/* Contact Information */}
-          <div className="animate-slide-up">
-            <h3 className="text-lg font-semibold text-gray-900 mb-8">Get in Touch</h3>
-            <div className="space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-                  <Mail className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">Email</h4>
-                  <p className="text-gray-600">info@detalabsai.com</p>
-                  <p className="text-sm text-gray-500">We'll respond within 24 hours</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-                  <Phone className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">Phone</h4>
-                  <p className="text-gray-600">+94 (74) 195-7668</p>
-                  <p className="text-sm text-gray-500">Mon-Fri from 8am to 5pm IST</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-                  <MapPin className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">Office</h4>
-                  <p className="text-gray-600">
-                    9/2 Divulpitiya-Bellanwila Road
-                    <br />
-                    Colombo, 94105
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-                  <Clock className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-gray-900">Business Hours</h4>
-                  <p className="text-gray-600">
-                    Monday - Friday: 8:00 AM - 5:00 PM PST
-                    <br />
-                    Weekend: By appointment
-                  </p>
-                </div>
-              </div>
-            </div>
+          <p className="mt-6 text-lg leading-8 text-gray-300">
+            Let's discuss your project and explore how we can help you achieve your goals.
+          </p>
+        </motion.div>
+
+        <div className="mx-auto mt-16 grid max-w-4xl grid-cols-1 gap-8 lg:grid-cols-2">
+          {/* Contact Information Cards */}
+          <div className="space-y-6">
+            {contactInfo.map((info, index) => (
+              <motion.div
+                key={info.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+                custom={index}
+              >
+                <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 hover:border-cyan-500/50 transition-all duration-300 p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 flex-shrink-0">
+                      <info.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-white mb-1">{info.title}</h3>
+                      <p className="text-gray-200">{info.content}</p>
+                      {info.subtitle && (
+                        <p className="text-sm text-gray-400 mt-1">{info.subtitle}</p>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
           </div>
 
           {/* Contact Form */}
-          <Card className="animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  label="Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="Your full name"
-                />
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  label="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  placeholder="your.email@example.com"
-                />
-              </div>
-              <Input
-                id="subject"
-                name="subject"
-                type="text"
-                label="Subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                placeholder="What's this about?"
-              />
-              <Textarea
-                id="message"
-                name="message"
-                label="Message"
-                rows={6}
-                value={formData.message}
-                onChange={handleChange}
-                required
-                placeholder="Tell us about your project and how we can help..."
-              />
-
-              {submitStatus === "success" && (
-                <div className="rounded-md bg-green-50 p-4">
-                  <div className="text-sm text-green-800">
-                    Thank you for your message! We'll get back to you within 24 hours.
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            custom={4}
+          >
+            <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 hover:border-cyan-500/50 transition-all duration-300 p-8">
+              <h3 className="text-xl font-bold text-white mb-6">Send us a message</h3>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                      Name
+                    </label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Your full name"
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                      Email
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="your.email@example.com"
+                      className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                    />
                   </div>
                 </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div className="rounded-md bg-red-50 p-4">
-                  <div className="text-sm text-red-800">
-                    Sorry, there was an error sending your message. Please try again or contact us directly.
-                  </div>
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                    Subject
+                  </label>
+                  <input
+                    id="subject"
+                    name="subject"
+                    type="text"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder="What's this about?"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300"
+                  />
                 </div>
-              )}
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={6}
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    placeholder="Tell us about your project and how we can help..."
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-300 resize-none"
+                  />
+                </div>
 
-              <Button type="submit" variant="primary" size="lg" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </Card>
+                {submitStatus === "success" && (
+                  <div className="rounded-lg bg-green-500/20 border border-green-500/50 p-4">
+                    <div className="text-sm text-green-400">
+                      Thank you for your message! We'll get back to you within 2 hours.
+                    </div>
+                  </div>
+                )}
+
+                {submitStatus === "error" && (
+                  <div className="rounded-lg bg-red-500/20 border border-red-500/50 p-4">
+                    <div className="text-sm text-red-400">
+                      Sorry, there was an error sending your message. Please try again or contact us directly.
+                    </div>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white shadow-lg shadow-cyan-500/30"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="ml-2 h-5 w-5" />
+                    </>
+                  )}
+                </Button>
+              </form>
+            </Card>
+          </motion.div>
         </div>
       </div>
     </div>
