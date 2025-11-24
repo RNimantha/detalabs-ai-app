@@ -1,3 +1,70 @@
 [build]
-  command = "npm run build"
+  command = "node scripts/validate-env.js && npm run build"
   publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
+
+# Next.js plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Environment variables validation (will fail build if missing)
+# Add these in Netlify Dashboard > Site Settings > Environment Variables
+# Required Supabase variables:
+# - NEXT_PUBLIC_SUPABASE_URL
+# - NEXT_PUBLIC_SUPABASE_ANON_KEY
+# - SUPABASE_SERVICE_ROLE_KEY
+#
+# Optional notification variables:
+# - SMTP_HOST
+# - SMTP_PORT
+# - SMTP_USER
+# - SMTP_PASS
+# - SMTP_FROM
+# - TWILIO_ACCOUNT_SID
+# - TWILIO_AUTH_TOKEN
+# - TWILIO_WHATSAPP_FROM
+
+# API routes are handled automatically by @netlify/plugin-nextjs
+# No manual redirects needed for /api/* routes
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Headers for API routes (CORS and Supabase)
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    X-Content-Type-Options = "nosniff"
+
+# Error handling
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Functions configuration for API routes
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["supabase/**/*"]

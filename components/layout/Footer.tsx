@@ -53,17 +53,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden" aria-labelledby="footer-heading">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] opacity-20" />
-        
-        {/* Subtle gradient orbs */}
-        <div className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl" />
-      </div>
-
+    <footer className="relative overflow-hidden" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
@@ -72,17 +62,20 @@ export default function Footer() {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Brand Section */}
           <div className="space-y-8">
-            <div className="flex items-center space-x-2">
-              {/* <Image
-                src="/ss.png"
+            <div className="flex items-center space-x-3">
+              <Image
+                src="/logo.png"
                 alt="DetaLabs AI Logo"
-                width={100}
-                height={100}
-                className="h-8 w-8 object-contain"
-              /> */}
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                DetaLabs AI
-              </span>
+                width={48}
+                height={48}
+                className="h-12 w-12 object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="text-xs font-normal text-cyan-400 leading-tight">Analytics By</span>
+                <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+                  DetaLabs AI
+                </span>
+              </div>
             </div>
             <p className="text-sm leading-6 text-gray-300">
               Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation

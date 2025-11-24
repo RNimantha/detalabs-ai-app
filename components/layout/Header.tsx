@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Menu, X, LogOut } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/components/auth/AuthProvider"
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -18,23 +18,33 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const { user, logout } = useAuth()
 
   return (
     <header className="bg-slate-900/90 border border-purple-500/20 shadow-lg shadow-purple-500/10 sticky top-0 z-50 mx-4 my-2 rounded-xl">
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        {/* Company Name on the left */}
-        <div className="flex">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-            <span className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400">
-              DetaLabs AI
-            </span>
+        {/* Company Logo and Name on the left */}
+        <div className="flex flex-shrink-0">
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-3">
+            <Image
+              src="/logo.png"
+              alt="DetaLabs AI"
+              width={40}
+              height={40}
+              className="h-10 w-10 object-contain"
+              priority
+            />
+            <div className="flex flex-col">
+              <span className="text-xs font-normal text-cyan-400 leading-tight">Analytics By</span>
+              <span className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 leading-tight">
+                DetaLabs AI
+              </span>
+            </div>
           </Link>
         </div>
 
-        {/* Navigation links centered on desktop */}
-        <div className="hidden md:flex md:flex-1 md:justify-center">
-          <div className="flex md:gap-x-8 lg:gap-x-12">
+        {/* Navigation links and button on the right */}
+        <div className="hidden md:flex md:items-center md:gap-x-8 lg:gap-x-12">
+          <div className="flex md:gap-x-6 lg:gap-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -48,36 +58,9 @@ export default function Header() {
               </Link>
             ))}
           </div>
-        </div>
-
-        {/* Buttons on the right */}
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:space-x-4">
-          {user ? (
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-300">Welcome, {user.name}</span>
-              {user.role === "admin" && (
-                <Button href="/admin/dashboard" variant="outline" size="sm" className="border-purple-400/50 text-purple-300 hover:bg-purple-500/20">
-                  Dashboard
-                </Button>
-              )}
-              <button
-                onClick={logout}
-                className="flex items-center space-x-1 text-sm text-gray-300 hover:text-white transition-colors"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Logout</span>
-              </button>
-            </div>
-          ) : (
-            <div className="flex items-center space-x-4">
-              <Button href="/login" variant="outline" className="border-purple-400/50 text-purple-300 hover:bg-purple-500/20">
-                Sign In
-              </Button>
-              <Button href="/contact" variant="primary" className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600">
-                Get Started
-              </Button>
-            </div>
-          )}
+          <Button href="/contact" variant="primary" className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 ml-4">
+            Get Started
+          </Button>
         </div>
         
         {/* Mobile menu button */}
@@ -100,8 +83,20 @@ export default function Header() {
           <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-900/95 border-l border-purple-500/20 px-6 py-6 sm:max-w-sm rounded-l-xl">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-                {/* Note: Remove or use a more performant Next.js Image component here if needed */}
-                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400">DetaLabs AI</span>
+                <Image
+                  src="/logo.png"
+                  alt="DetaLabs AI"
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 object-contain"
+                  priority
+                />
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-normal text-cyan-400 leading-tight">Analytics By</span>
+                  <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 leading-tight">
+                    DetaLabs AI
+                  </span>
+                </div>
               </Link>
               <button
                 type="button"
@@ -129,38 +124,14 @@ export default function Header() {
                   ))}
                 </div>
                 <div className="py-6">
-                  {user ? (
-                    <div className="space-y-4">
-                      <div className="text-sm text-gray-300">Welcome, {user.name}</div>
-                      {user.role === "admin" && (
-                        <Button href="/admin/dashboard" variant="outline" className="w-full bg-transparent border-purple-400/50 text-purple-300">
-                          Dashboard
-                        </Button>
-                      )}
-                      <Button onClick={logout} variant="secondary" className="w-full bg-gray-800 hover:bg-gray-700">
-                        Logout
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col space-y-4">
-                          <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                            <Button
-                              variant="outline"
-                              className="w-full bg-transparent border-purple-400/50 text-purple-300"
-                            >
-                              Sign In
-                            </Button>
-                          </Link>
-                          <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                            <Button
-                              variant="primary"
-                              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500"
-                            >
-                              Get Started
-                            </Button>
-                          </Link>
-                        </div>
-                  )}
+                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
+                    <Button
+                      variant="primary"
+                      className="w-full bg-gradient-to-r from-cyan-500 to-blue-500"
+                    >
+                      Get Started
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
