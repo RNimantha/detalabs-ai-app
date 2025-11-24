@@ -239,12 +239,14 @@
 }
 
 .blog-content a {
-  color: #3b82f6;
-  text-decoration: underline;
+  color: #22d3ee;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 .blog-content a:hover {
-  color: #2563eb;
+  color: #06b6d4;
+  text-decoration: underline;
 }
 
 .blog-content img {
@@ -255,19 +257,24 @@
 }
 
 .blog-content blockquote {
-  border-left: 4px solid #3b82f6;
+  border-left: 4px solid #22d3ee;
   padding-left: 1rem;
   margin: 1.5rem 0;
   font-style: italic;
-  color: #6b7280;
+  color: #cbd5e1;
+  background-color: rgba(30, 41, 59, 0.5);
+  padding: 1rem;
+  border-radius: 0.5rem;
 }
 
 .blog-content code {
-  background-color: #f3f4f6;
+  background-color: rgba(30, 41, 59, 0.8);
+  color: #22d3ee;
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: 'Courier New', monospace;
+  border: 1px solid rgba(34, 211, 238, 0.3);
 }
 
 .blog-content pre {

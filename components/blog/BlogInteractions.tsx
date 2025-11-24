@@ -64,14 +64,14 @@ export default function BlogInteractions({
   }
 
   return (
-    <div className="flex items-center gap-6 py-4 border-t border-b border-gray-200 my-8">
+    <div className="flex items-center gap-6 py-6 border-t border-b border-white/10 my-8">
       <Button
         variant="outline"
         size="sm"
         onClick={handleLike}
         disabled={loading}
-        className={`flex items-center gap-2 ${
-          userLiked ? "text-red-600 border-red-300 bg-red-50" : ""
+        className={`flex items-center gap-2 bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50 ${
+          userLiked ? "text-red-400 border-red-500/50 bg-red-500/20 hover:bg-red-500/30" : ""
         }`}
       >
         {loading ? (
@@ -83,13 +83,13 @@ export default function BlogInteractions({
         <span className="sr-only">Likes</span>
       </Button>
 
-      <div className="flex items-center gap-2 text-gray-600">
+      <div className="flex items-center gap-2 text-gray-300">
         <MessageCircle className="h-4 w-4" />
         <span>{commentsCount}</span>
         <span className="sr-only">Comments</span>
       </div>
 
-      <div className="flex items-center gap-2 text-gray-600">
+      <div className="flex items-center gap-2 text-gray-300">
         <Eye className="h-4 w-4" />
         <span>{views}</span>
         <span className="sr-only">Views</span>

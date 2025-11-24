@@ -337,30 +337,33 @@ export default function AdminUploader() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-xl text-white">Loading...</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Simple Header Bar */}
-      <div className="bg-white shadow-sm border-b sticky top-0 z-10">
-        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Header */}
+      <div className="bg-slate-900/80 backdrop-blur-xl border-b border-white/10 sticky top-0 z-10">
+        <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-xl font-bold text-gray-900">Blog Uploader</h1>
+            <div>
+              <h1 className="text-2xl font-bold text-white">Blog Uploader</h1>
+              <p className="text-sm text-gray-400 mt-1">Create and manage your blog posts</p>
+            </div>
             <div className="flex items-center space-x-3">
-              <Button href="/admin/contacts" variant="outline" size="sm">
+              <Button href="/admin/contacts" variant="outline" size="sm" className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50">
                 Contact Queries
               </Button>
-              <Button href="/admin/comments" variant="outline" size="sm">
+              <Button href="/admin/comments" variant="outline" size="sm" className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50">
                 Comments
               </Button>
-              <Button href="/" variant="outline" size="sm">
+              <Button href="/" variant="outline" size="sm" className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50">
                 View Site
               </Button>
-              <Button onClick={handleLogout} variant="secondary" size="sm">
+              <Button onClick={handleLogout} variant="outline" size="sm" className="bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30">
                 Logout
               </Button>
             </div>
@@ -369,52 +372,52 @@ export default function AdminUploader() {
       </div>
 
       <div className="max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
           {/* Editor Form */}
           <div className="xl:col-span-2 space-y-6">
-            <Card className="p-6">
+            <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6">
               <div className="space-y-6">
                 <div>
-                  <Label htmlFor="title">Title *</Label>
+                  <Label htmlFor="title" className="text-white">Title *</Label>
                   <Input
                     id="title"
                     value={formData.title}
                     onChange={(e) => handleInputChange("title", e.target.value)}
                     placeholder="Enter blog title"
-                    className="mt-1"
+                    className="mt-1 bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="excerpt">Excerpt</Label>
+                  <Label htmlFor="excerpt" className="text-white">Excerpt</Label>
                   <Textarea
                     id="excerpt"
                     value={formData.excerpt}
                     onChange={(e) => handleInputChange("excerpt", e.target.value)}
                     placeholder="Brief description of the blog post"
                     rows={3}
-                    className="mt-1"
+                    className="mt-1 bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                   />
                 </div>
 
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <div>
-                      <Label htmlFor="content" className="text-base font-semibold">Blog Content *</Label>
-                      <p className="text-sm text-gray-500 mt-1">Write your main blog post content here. Use the toolbar above to format text, add images, links, and more.</p>
+                      <Label htmlFor="content" className="text-base font-semibold text-white">Blog Content *</Label>
+                      <p className="text-sm text-gray-400 mt-1">Write your main blog post content here. Use the toolbar above to format text, add images, links, and more.</p>
                     </div>
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
                       onClick={insertImageInEditor}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50"
                     >
                       <ImageIcon className="h-4 w-4" />
                       Insert Image
                     </Button>
                   </div>
-                  <div className="mt-1 border rounded-lg overflow-visible bg-white" style={{ position: 'relative', zIndex: 1 }}>
+                  <div className="mt-1 border border-white/10 rounded-lg overflow-visible bg-white" style={{ position: 'relative', zIndex: 1 }}>
                     <div 
                       ref={(el) => {
                         if (editorContainerRef.current !== el) {
@@ -473,42 +476,43 @@ export default function AdminUploader() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="author">Author *</Label>
+                    <Label htmlFor="author" className="text-white">Author *</Label>
                     <Input
                       id="author"
                       value={formData.author}
                       onChange={(e) => handleInputChange("author", e.target.value)}
                       placeholder="Author name"
-                      className="mt-1"
+                      className="mt-1 bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="date">Date *</Label>
+                    <Label htmlFor="date" className="text-white">Date *</Label>
                     <Input
                       id="date"
                       type="date"
                       value={formData.date}
                       onChange={(e) => handleInputChange("date", e.target.value)}
-                      className="mt-1"
+                      className="mt-1 bg-slate-800/50 border-white/10 text-white focus:border-cyan-500"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <Label htmlFor="image">Featured Image URL</Label>
+                  <Label htmlFor="image" className="text-white">Featured Image URL</Label>
                   <div className="mt-1 flex gap-2">
                     <Input
                       id="image"
                       value={formData.image}
                       onChange={(e) => handleInputChange("image", e.target.value)}
                       placeholder="Image URL or upload below"
-                      className="flex-1"
+                      className="flex-1 bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                     />
                     <Button
                       type="button"
                       variant="outline"
                       onClick={() => fileInputRef.current?.click()}
+                      className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50"
                     >
                       Upload
                     </Button>
@@ -516,37 +520,37 @@ export default function AdminUploader() {
                 </div>
 
                 <div>
-                  <Label htmlFor="keywords">Keywords (comma-separated)</Label>
+                  <Label htmlFor="keywords" className="text-white">Keywords (comma-separated)</Label>
                   <Input
                     id="keywords"
                     value={formData.keywords}
                     onChange={(e) => handleInputChange("keywords", e.target.value)}
                     placeholder="AI, Machine Learning, Data Science"
-                    className="mt-1"
+                    className="mt-1 bg-slate-800/50 border-white/10 text-white placeholder-gray-500 focus:border-cyan-500"
                   />
                 </div>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 p-4 bg-slate-800/30 rounded-lg border border-white/10">
                   <Switch
                     id="is_public"
                     checked={formData.is_public}
                     onCheckedChange={(checked) => handleInputChange("is_public", checked)}
                   />
-                  <Label htmlFor="is_public">Make this blog public</Label>
+                  <Label htmlFor="is_public" className="text-white cursor-pointer">Make this blog public</Label>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-4 border-t border-white/10">
                   <Button
                     onClick={handleSave}
                     variant="primary"
                     disabled={saving}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white shadow-lg"
                   >
                     <Save className="h-4 w-4" />
                     {saving ? "Saving..." : editingId ? "Update Blog" : "Create Blog"}
                   </Button>
                   {editingId && (
-                    <Button onClick={resetForm} variant="outline" className="flex items-center gap-2">
+                    <Button onClick={resetForm} variant="outline" className="flex items-center gap-2 bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50">
                       <X className="h-4 w-4" />
                       Cancel
                     </Button>
@@ -559,17 +563,17 @@ export default function AdminUploader() {
 
           {/* Real-time Preview Panel - Always Visible Split View */}
           <div className="xl:col-span-1">
-            <Card className="p-4 sticky top-4">
-              <div className="flex items-center justify-between mb-4 pb-3 border-b">
-                <h2 className="text-base font-semibold flex items-center gap-2">
-                  <Eye className="h-4 w-4 text-blue-600" />
+            <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-4 sticky top-4">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+                <h2 className="text-base font-semibold text-white flex items-center gap-2">
+                  <Eye className="h-4 w-4 text-cyan-400" />
                   Live Preview
                 </h2>
-                <span className="text-xs text-gray-500 bg-green-100 text-green-700 px-2 py-1 rounded">
+                <span className="text-xs text-cyan-400 bg-cyan-500/20 border border-cyan-500/50 px-2 py-1 rounded">
                   Real-time
                 </span>
               </div>
-              <div className="border rounded-lg p-4 bg-white max-h-[calc(100vh-180px)] overflow-y-auto shadow-inner">
+              <div className="border border-white/10 rounded-lg p-4 bg-white max-h-[calc(100vh-180px)] overflow-y-auto shadow-inner">
                 {/* Preview Content - Updates as you type */}
                 <article className="prose prose-sm max-w-none">
                   {formData.title ? (
@@ -628,70 +632,101 @@ export default function AdminUploader() {
             </Card>
           </div>
 
-          {/* Blog List */}
-          <div className="space-y-4">
-            <Card className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold">All Blogs</h2>
-                <Button onClick={resetForm} variant="outline" size="sm" className="flex items-center gap-2">
-                  <Plus className="h-4 w-4" />
-                  New
-                </Button>
+        </div>
+
+        {/* Blog List - Full Width Table */}
+        <div className="mt-8">
+          <Card className="bg-slate-900/60 backdrop-blur-xl border border-white/10 overflow-hidden">
+            <div className="p-6 border-b border-white/10 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-white">All Blogs</h2>
+                <p className="text-sm text-gray-400 mt-1">{blogs.length} blog{blogs.length !== 1 ? 's' : ''} total</p>
               </div>
-              <div className="space-y-2 max-h-[600px] overflow-y-auto">
-                {blogs.length === 0 ? (
-                  <p className="text-gray-500 text-sm">No blogs yet. Create your first blog!</p>
-                ) : (
-                  blogs.map((blog) => (
-                    <div
-                      key={blog.id}
-                      className="p-3 border rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-sm truncate">{blog.title}</h3>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {new Date(blog.date).toLocaleDateString()}
-                          </p>
-                          <div className="flex items-center gap-2 mt-2">
-                            {blog.is_public ? (
-                              <span className="text-xs bg-green-100 text-green-800 px-2 py-0.5 rounded">
-                                Public
-                              </span>
-                            ) : (
-                              <span className="text-xs bg-gray-100 text-gray-800 px-2 py-0.5 rounded">
-                                Private
-                              </span>
-                            )}
+              <Button onClick={resetForm} variant="outline" size="sm" className="flex items-center gap-2 bg-cyan-500/20 border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/30">
+                <Plus className="h-4 w-4" />
+                New Blog
+              </Button>
+            </div>
+            {blogs.length === 0 ? (
+              <div className="p-12 text-center">
+                <p className="text-gray-400">No blogs yet. Create your first blog!</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-slate-800/50 border-b border-white/10">
+                    <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Title</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Author</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Status</th>
+                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    {blogs.map((blog) => (
+                      <tr
+                        key={blog.id}
+                        className="bg-slate-900/30 hover:bg-slate-800/50 transition-colors"
+                      >
+                        <td className="px-6 py-4">
+                          <div className="text-sm font-medium text-white">{blog.title}</div>
+                          {blog.excerpt && (
+                            <div className="text-xs text-gray-400 mt-1 line-clamp-1">{blog.excerpt}</div>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-cyan-400">{blog.author}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm text-gray-400">
+                            {new Date(blog.date).toLocaleDateString("en-US", {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            })}
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2 ml-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleEdit(blog)}
-                            className="h-9 w-9 p-0 hover:bg-blue-50 hover:border-blue-300"
-                            title="Edit blog"
-                          >
-                            <Edit className="h-5 w-5 text-blue-600" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleDelete(blog.id)}
-                            className="h-9 w-9 p-0 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-300"
-                            title="Delete blog"
-                          >
-                            <Trash2 className="h-5 w-5" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {blog.is_public ? (
+                            <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-500/20 text-green-400 border border-green-500/50">
+                              Public
+                            </span>
+                          ) : (
+                            <span className="px-2 py-1 text-xs font-medium rounded-full bg-gray-500/20 text-gray-400 border border-gray-500/50">
+                              Private
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleEdit(blog)}
+                              className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/20"
+                              title="Edit blog"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDelete(blog.id)}
+                              className="text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                              title="Delete blog"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </Card>
-          </div>
+            )}
+          </Card>
         </div>
       </div>
 
