@@ -45,6 +45,7 @@ export default function AdminUploader() {
   const [editingId, setEditingId] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const featuredImageInputRef = useRef<HTMLInputElement>(null)
   const editorContainerRef = useRef<HTMLDivElement>(null)
   const editorKeyRef = useRef(0)
 
@@ -511,7 +512,7 @@ export default function AdminUploader() {
                     <Button
                       type="button"
                       variant="outline"
-                      onClick={() => fileInputRef.current?.click()}
+                      onClick={() => featuredImageInputRef.current?.click()}
                       className="bg-slate-800/50 border-white/10 text-white hover:bg-slate-700/50"
                     >
                       Upload
@@ -739,6 +740,7 @@ export default function AdminUploader() {
         className="hidden"
       />
       <input
+        ref={featuredImageInputRef}
         type="file"
         accept="image/*"
         onChange={handleImageUpload}
