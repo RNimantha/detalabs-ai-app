@@ -68,3 +68,18 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["supabase/**/*"]
+
+# Prevent caching of blog routes
+[[headers]]
+  for = "/api/blog"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
+
+[[headers]]
+  for = "/blog/*"
+  [headers.values]
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
