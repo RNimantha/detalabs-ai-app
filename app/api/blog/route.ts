@@ -1,6 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getPublicBlogs } from "@/lib/blog-db"
 
+// Force dynamic rendering to prevent caching
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export async function GET(request: NextRequest) {
   try {
     const posts = await getPublicBlogs()
@@ -21,6 +25,12 @@ export async function GET(request: NextRequest) {
       posts: formattedPosts,
       isAuthenticated: false,
       totalPosts: formattedPosts.length,
+    }, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+      },
     })
   } catch (error) {
     console.error("Error fetching blog posts:", error)

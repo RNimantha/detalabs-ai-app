@@ -8,6 +8,10 @@ import BlogInteractions from "@/components/blog/BlogInteractions"
 import CommentSection from "@/components/blog/CommentSection"
 import { supabase } from "@/supabase/server"
 
+// Force dynamic rendering to prevent caching
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // Generate metadata for each blog post
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogBySlug(params.slug)
