@@ -1,7 +1,7 @@
 export const site = {
   name: "DetaLabs AI",
   description:
-    "One team to build your AI systems, ship your web product, and run your marketing. Based in Colombo, Sri Lanka.",
+    "One team to build your AI and machine learning systems, turn your data into decisions, ship your web product, and run your marketing. Based in Colombo, Sri Lanka.",
   email: "info@detalabsai.com",
   phone: "+94 74 195 7668",
   location: "Colombo, Sri Lanka",
@@ -15,7 +15,7 @@ export const site = {
   ],
   footer: "Build it. Ship it. Grow it.",
   footerDescription:
-    "AI engineering, marketing, and web development. Connected by one team.",
+    "AI engineering, data science, marketing, and web development. Connected by one team.",
   legal: [
     { label: "Privacy", href: "/privacy" },
     { label: "Terms", href: "/terms" },
@@ -40,6 +40,19 @@ export const services = [
     ],
     link: "Explore AI engineering",
     icon: "engineering",
+  },
+  {
+    slug: "data-science",
+    title: "Data Science & Machine Learning",
+    intro: "Turn your data into forecasts, insights, and decisions you can trust.",
+    capabilities: [
+      "Predictive modelling & forecasting",
+      "Data analysis & business insights",
+      "Computer vision & NLP models",
+      "Data pipelines & dashboards",
+    ],
+    link: "Explore data science & ML",
+    icon: "data",
   },
   {
     slug: "ai-marketing",
@@ -144,16 +157,18 @@ export const testimonials: Testimonial[] = [
   },
 ];
 export const home = {
-  eyebrow: "COLOMBO, SRI LANKA · AI & DIGITAL STUDIO",
+  basedIn: "Based in Colombo, Sri Lanka",
+  servingWorld: "Serving clients worldwide",
+  eyebrow: "AI & DIGITAL STUDIO",
   headline: "Build the AI. Ship the product. Grow the business.",
   subhead:
-    "AI engineering, AI marketing, and web development — one team connecting your idea to the people who need it.",
+    "AI engineering, data science & machine learning, AI marketing, and web development — one team connecting your idea to the people who need it.",
   heroNote: "From a focused first project to a full product launch.",
   diagramLabel: "How our services connect",
   diagramCenter: "Your business",
   diagramCaption: "One team. A connected approach.",
   diagramNodes: ["Intelligence", "Product", "Growth"],
-  servicesEyebrow: "THREE DISCIPLINES. ONE TEAM.",
+  servicesEyebrow: "FOUR DISCIPLINES. ONE TEAM.",
   servicesTitle: "Everything your next idea needs.",
   servicesIntro:
     "Bring us a specific challenge or a product to build. We connect the technical work with the way it reaches your customers.",

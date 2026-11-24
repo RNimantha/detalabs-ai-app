@@ -1,9 +1,11 @@
 "use client";
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { CheckCircle2, CircleAlert, Send } from "lucide-react";
 import { useLeadSubmissionId } from "@/hooks/use-lead-submission-id";
 import { stelvoice } from "@/content/stelvoice";
 import { contact } from "@/content/pages";
+import SuccessDialog from "@/components/marketing/SuccessDialog";
 import {
   productInquirySchema,
   type ProductInquiry,
@@ -18,7 +20,9 @@ export default function ProductInquiryForm({
   const [intent, setIntent] = useState(initialRequest);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState("");
+  const [outcome, setOutcome] = useState<"error" | "success">("error");
   const [pending, setPending] = useState(false);
+  const [thanks, setThanks] = useState(false);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pending) return;
@@ -36,6 +40,7 @@ export default function ProductInquiryForm({
           ]),
         ),
       );
+      setOutcome("error");
       setStatus(contact.invalid);
       form
         .querySelector<HTMLElement>(
@@ -68,6 +73,7 @@ export default function ProductInquiryForm({
               )
             : {},
         );
+        setOutcome("error");
         setStatus(data.error || contact.error);
         return;
       }
@@ -76,26 +82,70 @@ export default function ProductInquiryForm({
       submissionId.clear();
       form.reset();
       setIntent(initialRequest);
-      setStatus(stelvoice.form.success);
+      setThanks(true);
     } catch {
+      setOutcome("error");
       setStatus(contact.error);
     } finally {
       setPending(false);
     }
   }
+  const required = ["name", "email", "company"];
   return (
-    <form className="contact-form sv-inquiry" onSubmit={submit} noValidate>
-      <div className="form-grid">
+    <form
+      className="contact-form consultation-form sv-inquiry"
+      onSubmit={submit}
+      noValidate
+      aria-busy={pending}
+    >
+      <div className="consultation-form-header">
+        <p className="eyebrow">{stelvoice.form.formEyebrow}</p>
+        <small>{stelvoice.form.requiredNote}</small>
+      </div>
+      <fieldset
+        className="consultation-services"
+        data-invalid={!!errors.requestType}
+        aria-describedby={errors.requestType ? "sv-requestType-error" : undefined}
+      >
+        <legend>
+          {stelvoice.form.labels.requestType}
+          <span aria-hidden="true"> *</span>
+        </legend>
+        <div className="consultation-service-grid sv-intent-grid">
+          {stelvoice.form.intents.map((item) => (
+            <label className="consultation-service" key={item.value}>
+              <input
+                type="radio"
+                name="requestType"
+                value={item.value}
+                checked={intent === item.value}
+                onChange={() => setIntent(item.value)}
+                required
+              />
+              <span>{item.label}</span>
+            </label>
+          ))}
+        </div>
+        {errors.requestType && (
+          <p className="field-error" id="sv-requestType-error">
+            {errors.requestType}
+          </p>
+        )}
+      </fieldset>
+      <div className="form-grid consultation-fields">
         {(
           ["name", "email", "company", "role", "teamSize", "volume"] as const
         ).map((name) => (
-          <div key={name}>
-            <label htmlFor={`sv-${name}`}>{stelvoice.form.labels[name]}</label>
+          <div className="consultation-field" key={name}>
+            <label htmlFor={`sv-${name}`}>
+              {stelvoice.form.labels[name]}
+              {required.includes(name) && <span aria-hidden="true"> *</span>}
+            </label>
             <input
               id={`sv-${name}`}
               name={name}
               type={name === "email" ? "email" : "text"}
-              required={["name", "email", "company"].includes(name)}
+              required={required.includes(name)}
               maxLength={name === "name" ? 100 : name === "email" ? 254 : 200}
               autoComplete={
                 {
@@ -121,55 +171,55 @@ export default function ProductInquiryForm({
           </div>
         ))}
       </div>
-      <label htmlFor="sv-requestType">
-        {stelvoice.form.labels.requestType}
-      </label>
-      <select
-        name="requestType"
-        id="sv-requestType"
-        value={intent}
-        onChange={(event) =>
-          setIntent(event.target.value as ProductInquiry["requestType"])
-        }
-        required
-      >
-        {stelvoice.form.intents.map((item) => (
-          <option key={item.value} value={item.value}>
-            {item.label}
-          </option>
-        ))}
-      </select>
-      <label className="sv-message-label" htmlFor="sv-message">
-        {stelvoice.form.labels.message}
-      </label>
-      <textarea
-        name="message"
-        id="sv-message"
-        rows={4}
-        maxLength={5000}
-        aria-invalid={!!errors.message}
-        aria-describedby={errors.message ? "sv-message-error" : undefined}
-      />
-      {errors.message && (
-        <p className="field-error" id="sv-message-error">
-          {errors.message}
+      <div className="consultation-field">
+        <label htmlFor="sv-message">{stelvoice.form.labels.message}</label>
+        <textarea
+          name="message"
+          id="sv-message"
+          rows={4}
+          maxLength={5000}
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "sv-message-error" : undefined}
+        />
+        {errors.message && (
+          <p className="field-error" id="sv-message-error">
+            {errors.message}
+          </p>
+        )}
+      </div>
+      <div className="consultation-submit">
+        <p className="form-privacy">
+          {contact.privacy} <Link href="/privacy">{contact.privacyLink}</Link>.
         </p>
-      )}
-      <p className="form-privacy">
-        {contact.privacy} <Link href="/privacy">{contact.privacyLink}</Link>.
-      </p>
-      <button type="submit" className="marketing-button" disabled={pending}>
-        {pending
-          ? stelvoice.form.pending
-          : intent === "trial"
-            ? stelvoice.form.submitTrial
-            : intent === "pricing"
-              ? stelvoice.form.submitPricing
-              : stelvoice.form.submit}
-      </button>
-      <p role="status" aria-live="polite" className="form-status">
-        {status}
-      </p>
+        <button type="submit" className="marketing-button" disabled={pending}>
+          <Send size={17} aria-hidden="true" />
+          {pending
+            ? stelvoice.form.pending
+            : intent === "trial"
+              ? stelvoice.form.submitTrial
+              : intent === "pricing"
+                ? stelvoice.form.submitPricing
+                : stelvoice.form.submit}
+        </button>
+      </div>
+      <div
+        role="status"
+        aria-live="polite"
+        className={`consultation-status ${status ? "has-message" : ""}`}
+        data-outcome={outcome}
+      >
+        {status && (
+          <>
+            {outcome === "success" ? (
+              <CheckCircle2 size={22} aria-hidden="true" />
+            ) : (
+              <CircleAlert size={22} aria-hidden="true" />
+            )}
+            <p>{status}</p>
+          </>
+        )}
+      </div>
+      <SuccessDialog open={thanks} onClose={() => setThanks(false)} />
     </form>
   );
 }

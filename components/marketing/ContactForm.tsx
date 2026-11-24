@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLeadSubmissionId } from "@/hooks/use-lead-submission-id";
 import { CheckCircle2, CircleAlert, Send, ChevronDown } from "lucide-react";
 import { contact } from "@/content/pages";
+import SuccessDialog from "@/components/marketing/SuccessDialog";
 import { contactSchema } from "@/lib/contact-validation";
 
 export default function ContactForm() {
@@ -12,6 +13,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState("");
   const [outcome, setOutcome] = useState<"error" | "success">("error");
   const [pending, setPending] = useState(false);
+  const [thanks, setThanks] = useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -67,8 +69,7 @@ export default function ContactForm() {
       }
       submissionId.clear();
       form.reset();
-      setOutcome("success");
-      setStatus(contact.success);
+      setThanks(true);
     } catch {
       setOutcome("error");
       setStatus(contact.error);
@@ -223,6 +224,7 @@ export default function ContactForm() {
           </>
         )}
       </div>
+      <SuccessDialog open={thanks} onClose={() => setThanks(false)} />
     </form>
   );
 }

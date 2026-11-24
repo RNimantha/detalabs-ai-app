@@ -1,15 +1,16 @@
+import ServiceStack from "@/components/marketing/ServiceStack";
 import { services } from "@/content/site";
 import { pageLabels } from "@/content/pages";
 import { pageMetadata } from "@/lib/seo";
 import {
   Section,
   Container,
-  ServiceCard,
   CTABand,
 } from "@/components/marketing/shared";
 export const metadata = pageMetadata(
   "Services",
   pageLabels.servicesDescription,
+  "/services",
 );
 export default function ServicesPage() {
   return (
@@ -23,11 +24,7 @@ export default function ServicesPage() {
       </Section>
       <Section>
         <Container>
-          <div className="three-grid">
-            {services.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
-            ))}
-          </div>
+          <ServiceStack services={services} />
         </Container>
       </Section>
       <CTABand />

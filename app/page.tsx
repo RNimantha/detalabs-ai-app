@@ -1,10 +1,15 @@
+import type React from "react";
 import type { Metadata } from "next";
+import ServiceStack from "@/components/marketing/ServiceStack";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import {
   BrainCircuit,
   Code2,
   ChartNoAxesCombined,
   Layers3,
+  Globe2,
+  MapPin,
 } from "lucide-react";
 import {
   site,
@@ -17,18 +22,22 @@ import {
   Container,
   Section,
   Action,
-  ServiceCard,
   CaseStudyCard,
   CTABand,
   Testimonials,
 } from "@/components/marketing/shared";
 export const metadata: Metadata = {
-  title: "DetaLabs AI | AI Engineering, Marketing & Web Development",
-  description: site.description,
+  ...pageMetadata("Home", site.description, "/"),
+  title: { absolute: "DetaLabs AI | AI Engineering, Marketing & Web Development" },
   openGraph: {
+    ...pageMetadata("Home", site.description, "/").openGraph,
+    title: "DetaLabs AI | Build it. Ship it. Grow it.",
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "DetaLabs AI | Build it. Ship it. Grow it.",
     description: site.description,
-    type: "website",
+    images: ["/og-image.png"],
   },
 };
 export default function Home() {
@@ -37,6 +46,17 @@ export default function Home() {
       <Section className="hero">
         <Container>
           <div className="hero-copy">
+            <p className="hero-location">
+              <span>
+                <MapPin size={15} aria-hidden="true" />
+                {home.basedIn}
+              </span>
+              <span className="hero-location-dot" aria-hidden="true" />
+              <span>
+                <Globe2 size={15} aria-hidden="true" />
+                {home.servingWorld}
+              </span>
+            </p>
             <p className="eyebrow">{home.eyebrow}</p>
             <h1>
               {home.headline.split(". ").map((line, i) => (
@@ -61,16 +81,25 @@ export default function Home() {
             aria-label={`${home.diagramLabel}: ${home.diagramNodes.join(", ")}. ${home.diagramCaption}`}
           >
             <div className="diagram-grid" />
+            <div className="diagram-glow" aria-hidden="true" />
             <div className="diagram-top">
               <span className="diagram-symbol">
                 <Layers3 size={22} />
               </span>
               <span>{home.diagramCenter}</span>
             </div>
-            <div className="diagram-connector" />
+            <div className="diagram-connector">
+              <span className="diagram-pulse" aria-hidden="true" />
+              <span className="diagram-branch is-left" aria-hidden="true" />
+              <span className="diagram-branch is-right" aria-hidden="true" />
+            </div>
             <div className="diagram-nodes">
               {[BrainCircuit, Code2, ChartNoAxesCombined].map((Icon, i) => (
-                <div className="diagram-node" key={i}>
+                <div
+                  className="diagram-node"
+                  key={i}
+                  style={{ "--i": i } as React.CSSProperties}
+                >
                   <Icon size={25} />
                   <span>{home.diagramNodes[i]}</span>
                 </div>
@@ -87,11 +116,7 @@ export default function Home() {
             <h2>{home.servicesTitle}</h2>
             <p>{home.servicesIntro}</p>
           </div>
-          <div className="three-grid">
-            {services.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
-            ))}
-          </div>
+          <ServiceStack services={services} />
         </Container>
       </Section>
       <Section className="product-band">
@@ -181,24 +206,6 @@ export default function Home() {
       </Section>
       <Testimonials entries={testimonials} />
       <CTABand />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: site.name,
-            description: site.description,
-            email: site.email,
-            telephone: site.phone,
-            address: {
-              "@type": "PostalAddress",
-              addressLocality: "Colombo",
-              addressCountry: "LK",
-            },
-          }).replace(/</g, "\u003c"),
-        }}
-      />
     </>
   );
 }

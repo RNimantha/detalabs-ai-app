@@ -2,7 +2,7 @@ import { legal } from "@/content/pages";
 import { pageMetadata } from "@/lib/seo";
 import { Section, Container } from "@/components/marketing/shared";
 const content = legal.terms;
-export const metadata = pageMetadata(content.title, content.description);
+export const metadata = pageMetadata(content.title, content.description, "/terms");
 export default function LegalPage() {
   return (
     <Section>

@@ -349,7 +349,7 @@ export const stelvoice = {
       company: "Company name",
       role: "Role (optional)",
       teamSize: "Sales team size (optional)",
-      volume: "Monthly recording volume, in minutes (optional)",
+      volume: "Monthly call minutes (optional)",
       message: "Main requirement (optional)",
       requestType: "I’m interested in",
     },
@@ -362,6 +362,8 @@ export const stelvoice = {
     submitTrial: "Request a Trial",
     submitPricing: "Request Pricing",
     pending: "Sending…",
+    formEyebrow: "TALK TO THE STELVOICE TEAM",
+    requiredNote: "* Required fields. Everything else helps us tailor the conversation.",
     success:
       "Thank you. Your request has been received. Our team will contact you using the details provided.",
     companyError: "Please enter your company name (2–200 characters).",

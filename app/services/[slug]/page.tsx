@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { services, site, home } from "@/content/site";
 import { serviceDetails, pageLabels } from "@/content/pages";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, breadcrumbSchema, absoluteUrl, schemaIds } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import {
   Section,
   Container,
@@ -17,7 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   return service
-    ? pageMetadata(service.title, serviceDetails[service.slug].description)
+    ? pageMetadata(
+        service.title,
+        serviceDetails[service.slug].description,
+        `/services/${service.slug}`,
+      )
     : {};
 }
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -72,6 +77,33 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       </Section>
       <FAQ title={pageLabels.faq} items={details.faqs} />
       <CTABand />
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: service.title,
+            serviceType: service.title,
+            description: details.description,
+            url: absoluteUrl(`/services/${service.slug}`),
+            provider: { "@id": schemaIds.organization },
+            areaServed: "Worldwide",
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: `${service.title} capabilities`,
+              itemListElement: service.capabilities.map((capability) => ({
+                "@type": "Offer",
+                itemOffered: { "@type": "Service", name: capability },
+              })),
+            },
+          },
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Services", path: "/services" },
+            { name: service.title, path: `/services/${service.slug}` },
+          ]),
+        ]}
+      />
     </>
   );
 }

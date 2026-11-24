@@ -7,7 +7,7 @@ import {
   CaseStudyCard,
   CTABand,
 } from "@/components/marketing/shared";
-export const metadata = pageMetadata("Work", work.description);
+export const metadata = pageMetadata("Work", work.description, "/work");
 export default function WorkPage() {
   return (
     <>

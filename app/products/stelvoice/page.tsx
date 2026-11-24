@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { stelvoice as sv } from "@/content/stelvoice";
-import { siteUrl } from "@/lib/seo";
+import { siteUrl, schemaIds, breadcrumbSchema } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import {
   Section,
   Container,
@@ -260,9 +261,22 @@ export default async function StelVoicePage({
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
             image: `${siteUrl}/stelvoice/social-preview.webp`,
-            creator: { "@type": "Organization", name: "DetaLabs AI" },
+            creator: { "@id": schemaIds.organization },
+            publisher: { "@id": schemaIds.organization },
+            offers: {
+              "@type": "Offer",
+              availability: "https://schema.org/InStock",
+              url: `${siteUrl}${sv.path}?request=pricing`,
+              description: "Pricing on request",
+            },
           }).replace(/</g, "\\u003c"),
         }}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: sv.name, path: sv.path },
+        ])}
       />
     </div>
   );

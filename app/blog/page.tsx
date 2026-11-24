@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Section, Container, Card } from "@/components/marketing/shared";
 import type { Blog } from "@/supabase/types";
 export const dynamic = "force-dynamic";
-export const metadata = pageMetadata("Blog", blog.description);
+export const metadata = pageMetadata("Blog", blog.description, "/blog");
 export default async function BlogPage() {
   let posts: Blog[] = [];
   let unavailable = false;

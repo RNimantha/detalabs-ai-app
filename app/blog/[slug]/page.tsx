@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getBlogBySlug } from "@/lib/blog-db";
+import { absoluteUrl, breadcrumbSchema, defaultOgImage, schemaIds } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import BlogInteractions from "@/components/blog/BlogInteractions";
@@ -30,19 +32,30 @@ export async function generateMetadata({
       description: "The requested blog post could not be found.",
     };
   }
+  const path = `/blog/${post.slug}`;
   return {
-    title: `${post.title} | DetaLabs AI Blog`,
+    // The root layout's template adds "| DetaLabs AI".
+    title: post.title,
     description: post.excerpt || post.title,
+    alternates: { canonical: path },
     keywords:
       post.keywords?.join(", ") || "AI, Machine Learning, Data Analytics, Blog",
     authors: [{ name: post.author }],
     openGraph: {
       title: `${post.title} | DetaLabs AI Blog`,
       description: post.excerpt || post.title,
+      url: path,
+      siteName: "DetaLabs AI",
       type: "article",
       publishedTime: post.date,
       authors: [post.author],
-      images: post.image ? [{ url: post.image }] : [],
+      images: post.image ? [{ url: post.image }] : [defaultOgImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt || post.title,
+      images: [post.image || defaultOgImage.url],
     },
   };
 }
@@ -85,6 +98,29 @@ export default async function BlogPostPage({
           {blog.back}
         </Link>
 
+        <JsonLd
+          data={[
+            {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: post.title,
+              description: post.excerpt || post.title,
+              url: absoluteUrl(`/blog/${post.slug}`),
+              mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+              datePublished: post.date,
+              dateModified: post.updated_at || post.date,
+              image: post.image ? absoluteUrl(post.image) : absoluteUrl(defaultOgImage.url),
+              author: { "@type": "Person", name: post.author },
+              publisher: { "@id": schemaIds.organization },
+              ...(post.keywords?.length ? { keywords: post.keywords.join(", ") } : {}),
+            },
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ]}
+        />
         <article className="bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-8 sm:p-12">
           <div className="mb-6">
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">

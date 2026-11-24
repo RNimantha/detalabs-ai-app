@@ -1,6 +1,11 @@
 import Link from "next/link";
 import type { ReactNode, HTMLAttributes } from "react";
-import { BrainCircuit, ChartNoAxesCombined, Code2 } from "lucide-react";
+import {
+  BrainCircuit,
+  ChartNoAxesCombined,
+  ChartScatter,
+  Code2,
+} from "lucide-react";
 import { home, site, type Service, type CaseStudy } from "@/content/site";
 
 export function Container({
@@ -57,6 +62,7 @@ export function Action({
 export function ServiceCard({ service }: { service: Service }) {
   const Icon = {
     engineering: BrainCircuit,
+    data: ChartScatter,
     marketing: ChartNoAxesCombined,
     web: Code2,
   }[service.icon];

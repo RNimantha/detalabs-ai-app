@@ -29,6 +29,8 @@
  *   "name": "Visitor name", "email": "visitor@example.com",
  *   "company": "Optional for consultations",
  *   "service": "AI Engineering", "budget": "Not decided",
+ *   (service: AI Engineering, Data Science & ML, AI Marketing,
+ *    Web Development, StelVoice, or Not sure yet)
  *   "message": "Optional project details (up to 5,000 characters)."
  * }
  * StelVoice requests instead include kind:"stelvoice", requestType:"demo",
@@ -272,6 +274,7 @@ function validateLead_(body) {
   if (
     [
       "AI Engineering",
+      "Data Science & ML",
       "AI Marketing",
       "Web Development",
       "StelVoice",

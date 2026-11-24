@@ -2,9 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { leadership } from "@/content/leadership";
 import { about } from "@/content/pages";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, schemaIds } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { personSchema } from "@/lib/structured-data";
 import { Section, Container, CTABand } from "@/components/marketing/shared";
-export const metadata = pageMetadata("About", about.description);
+export const metadata = pageMetadata("About", about.description, "/about");
 export default function AboutPage() {
   return (
     <>
@@ -42,12 +44,22 @@ export default function AboutPage() {
             {leadership.members.map((person) => (
               <li className="marketing-card leadership-card" key={person.name}>
                 <div className="leadership-portrait">
-                  <Image
-                    src={person.image}
-                    alt={person.name}
-                    fill
-                    sizes="72px"
-                  />
+                  {person.image ? (
+                    <Image
+                      src={person.image}
+                      alt={person.name}
+                      fill
+                      sizes="72px"
+                    />
+                  ) : (
+                    <span className="leadership-initials" aria-hidden="true">
+                      {person.name
+                        .split(" ")
+                        .map((part) => part[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </span>
+                  )}
                 </div>
                 <div className="leadership-copy">
                   <h3>
@@ -96,6 +108,17 @@ export default function AboutPage() {
         </Container>
       </Section>
       <CTABand />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          url: absoluteUrl("/about"),
+          name: "About DetaLabs AI",
+          description: about.description,
+          about: { "@id": schemaIds.organization },
+          mainEntity: leadership.members.map(personSchema),
+        }}
+      />
     </>
   );
 }

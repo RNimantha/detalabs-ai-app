@@ -54,6 +54,42 @@ export const serviceDetails: Record<
       },
     ],
   },
+  "data-science": {
+    description:
+      "Use statistics and machine learning to find patterns in your data, predict what comes next, and act on it with confidence.",
+    problems: [
+      "Data is collected across systems but rarely turned into decisions.",
+      "Forecasts and reports rely on spreadsheets and manual effort.",
+      "A model works in a notebook but has no reliable path into daily use.",
+    ],
+    process: [
+      "Understand the business question, the data available, and how success will be measured.",
+      "Explore, clean, and model the data, comparing approaches against a clear baseline.",
+      "Deliver the model, analysis, or dashboard into your workflow, with monitoring and documentation.",
+    ],
+    faqs: [
+      {
+        question: "What kind of data do we need to start?",
+        answer:
+          "Historical records related to the question you want to answer, such as sales, operations, customer, or sensor data. We review quality and coverage during discovery and tell you plainly if more data is needed.",
+      },
+      {
+        question: "How is this different from AI engineering?",
+        answer:
+          "Data science and machine learning focus on analysing your data and building predictive models. AI engineering focuses on LLM-based systems such as assistants, RAG, and agents. Many projects combine both.",
+      },
+      {
+        question: "Can you build dashboards and reports as well as models?",
+        answer:
+          "Yes. We can deliver analysis, dashboards, and data pipelines, and connect model outputs to the tools your team already uses.",
+      },
+      {
+        question: "How do we know a model is accurate enough?",
+        answer:
+          "We agree on evaluation metrics and a baseline before modelling, test on data the model has not seen, and report results and limitations in plain language.",
+      },
+    ],
+  },
   "ai-marketing": {
     description:
       "Plan and run campaigns with a clear message, relevant targeting, and reporting your team can act on.",
@@ -131,7 +167,7 @@ export const about = {
   title: "One team, from the first idea to what comes next.",
   eyebrow: "ABOUT DETALABS AI",
   description:
-    "DetaLabs AI is a studio based in Colombo, Sri Lanka. We bring AI engineering, marketing, and web development together so the technical work and the way it reaches people can move in the same direction.",
+    "DetaLabs AI is a studio based in Colombo, Sri Lanka. We bring AI engineering, data science, marketing, and web development together so the technical work and the way it reaches people can move in the same direction.",
   heading: "Connected work. Clear decisions.",
   paragraphs: [
     "A useful AI system needs a way into your workflow. A web product needs a clear experience. A campaign needs an offer that delivers. We work across these connections.",
@@ -213,6 +249,29 @@ export const contact = {
     "* Required fields. Not sure about a budget? Choose “Not decided”.",
   messageHint:
     "Include your goals, timeline, and any existing tools or systems.",
+  aside: {
+    directTitle: "Reach us directly",
+    emailLabel: "Email",
+    phoneLabel: "Phone",
+    locationLabel: "Based in",
+    nextTitle: "What happens next",
+    steps: [
+      {
+        title: "We review your request",
+        text: "Our team reads the details you shared and the service you chose.",
+      },
+      {
+        title: "We get in touch",
+        text: "We contact you using the details provided to arrange a conversation.",
+      },
+      {
+        title: "We agree on a focused scope",
+        text: "Together we define the problem, the goals, and a clear first step.",
+      },
+    ],
+    exploreTitle: "Prefer to explore first?",
+    stelvoiceLabel: "StelVoice for sales teams",
+  },
   eyebrow: "LET’S TALK",
   title: "What would you like to build?",
   description:
@@ -227,6 +286,7 @@ export const contact = {
   },
   services: [
     "AI Engineering",
+    "Data Science & ML",
     "AI Marketing",
     "Web Development",
     "StelVoice",
@@ -244,6 +304,10 @@ export const contact = {
   submit: "Send inquiry",
   pending: "Sending…",
   success: "Your inquiry has been saved. Thank you for getting in touch.",
+  dialogTitle: "Thank you.",
+  dialogMessage:
+    "Your request has been received. Our team will contact you using the details provided.",
+  dialogClose: "Close",
   error:
     "We couldn’t send your inquiry. Please try again or email info@detalabsai.com.",
   invalid: "Please check the highlighted fields.",
