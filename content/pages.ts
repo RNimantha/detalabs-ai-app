@@ -212,7 +212,7 @@ export const contact = {
   requiredNote:
     "* Required fields. Not sure about a budget? Choose “Not decided”.",
   messageHint:
-    "Include your goals, timeline, and any existing tools or systems. At least 20 characters.",
+    "Include your goals, timeline, and any existing tools or systems.",
   eyebrow: "LET’S TALK",
   title: "What would you like to build?",
   description:
@@ -223,7 +223,7 @@ export const contact = {
     company: "Company (optional)",
     service: "Service interest",
     budget: "Budget range (USD)",
-    message: "Tell us about your project",
+    message: "Tell us about your project (optional)",
   },
   services: [
     "AI Engineering",
@@ -251,7 +251,7 @@ export const contact = {
   privacyLink: "privacy policy",
   required: "Required",
   emailError: "Enter a valid email address.",
-  messageError: "Please include between 20 and 5,000 characters.",
+  messageError: "Please keep this under 5,000 characters.",
   nameError: "Please enter a name between 2 and 100 characters.",
   serviceError: "Choose one of the listed services.",
   budgetError: "Choose one of the listed budget ranges.",

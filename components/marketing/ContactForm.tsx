@@ -179,7 +179,6 @@ export default function ContactForm() {
       <div className="consultation-field">
         <label htmlFor="message">
           {contact.fields.message}
-          <span aria-hidden="true"> *</span>
         </label>
         <p id="message-hint" className="consultation-hint">
           {contact.messageHint}
@@ -188,9 +187,7 @@ export default function ContactForm() {
           id="message"
           name="message"
           rows={5}
-          minLength={20}
           maxLength={5000}
-          required
           aria-invalid={!!errors.message}
           aria-describedby={`message-hint${errors.message ? " message-error" : ""}`}
         />

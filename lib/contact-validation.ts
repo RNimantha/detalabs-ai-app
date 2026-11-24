@@ -22,8 +22,9 @@ export const contactSchema = z.object({
   message: z
     .string()
     .trim()
-    .min(20, contact.messageError)
-    .max(5000, contact.messageError),
+    .max(5000, contact.messageError)
+    .optional()
+    .default(""),
 });
 export type Inquiry = z.infer<typeof contactSchema>;
 

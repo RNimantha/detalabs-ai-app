@@ -29,11 +29,11 @@
  *   "name": "Visitor name", "email": "visitor@example.com",
  *   "company": "Optional for consultations",
  *   "service": "AI Engineering", "budget": "Not decided",
- *   "message": "At least 20 characters for a consultation."
+ *   "message": "Optional project details (up to 5,000 characters)."
  * }
  * StelVoice requests instead include kind:"stelvoice", requestType:"demo",
  * "trial", or "pricing"; company is required. role, teamSize, volume, and
- * message are optional. service and budget are not needed for StelVoice.
+ * message are optional. message is optional for consultations too. service and budget are not needed for StelVoice.
  *
  * RESPONSE CONTRACT
  * ContentService returns JSON, including errors, normally with HTTP 200.
@@ -294,7 +294,7 @@ function validateLead_(body) {
   lead.role = text("role", false, 0, 200);
   lead.teamSize = text("teamSize", false, 0, 200);
   lead.volume = text("volume", false, 0, 200);
-  lead.message = text("message", !product, 20, 5000);
+  lead.message = text("message", false, 0, 5000);
   return lead;
 }
 
@@ -575,8 +575,7 @@ function teamEmail_(sheet, row) {
           return item[0] + ": " + item[1];
         })
         .join("\n") +
-      "\n\nProject details:\n" +
-      message +
+      (message ? "\n\nProject details:\n" + message : "") +
       "\n\nReference: " +
       row[0] +
       "\nOpen lead: " +
