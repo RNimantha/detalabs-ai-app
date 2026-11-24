@@ -5,10 +5,10 @@ import { getBlogBySlug } from "@/lib/blog-db"
 // POST - Track a view
 export async function POST(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const blog = await getBlogBySlug(params.slug)
+    const blog = await getBlogBySlug((await params).slug)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }

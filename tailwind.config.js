@@ -18,7 +18,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        "brand-bg": "var(--bg)",
+        "brand-subtle": "var(--bg-subtle)",
+        navy: { 900: "var(--navy-900)", 700: "var(--navy-700)" },
+        gold: { 500: "var(--gold-500)", 200: "var(--gold-200)" },
+        "brand-text": "var(--text)",
+        "brand-muted": "var(--text-muted)",
+        border: "var(--border)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -89,4 +95,4 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/forms"), require("tailwindcss-animate")],
-}
+};

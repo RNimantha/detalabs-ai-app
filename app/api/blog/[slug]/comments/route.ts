@@ -5,10 +5,10 @@ import { getBlogBySlug } from "@/lib/blog-db"
 // GET - Get comments for a blog
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const blog = await getBlogBySlug(params.slug)
+    const blog = await getBlogBySlug((await params).slug)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
@@ -35,10 +35,10 @@ export async function GET(
 // POST - Add a comment
 export async function POST(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const blog = await getBlogBySlug(params.slug)
+    const blog = await getBlogBySlug((await params).slug)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }

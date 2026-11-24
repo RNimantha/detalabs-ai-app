@@ -5,7 +5,7 @@ import { supabaseAdmin } from "@/supabase/server"
 // PUT - Approve or reject a comment
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get("admin_session")?.value
@@ -25,7 +25,7 @@ export async function PUT(
     const { data: comment, error } = await supabaseAdmin
       .from("blog_comments")
       .update({ is_approved: is_approved === true })
-      .eq("id", params.id)
+      .eq("id", (await params).id)
       .select()
       .single()
 
@@ -46,7 +46,7 @@ export async function PUT(
 // DELETE - Delete a comment
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get("admin_session")?.value
@@ -63,7 +63,7 @@ export async function DELETE(
     await supabaseAdmin
       .from("blog_comments")
       .delete()
-      .eq("id", params.id)
+      .eq("id", (await params).id)
 
     return NextResponse.json({ message: "Comment deleted successfully" })
   } catch (error: any) {

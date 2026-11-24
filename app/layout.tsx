@@ -1,40 +1,46 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import ConditionalLayout from "@/components/layout/ConditionalLayout"
+import type React from "react";
+import { siteUrl } from "@/lib/seo";
+import type { Metadata } from "next";
+import { Inter, Manrope } from "next/font/google";
+import "./globals.css";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "DetaLabs AI | AI, Machine Learning, Data Science SaaS Solutions",
+  metadataBase: new URL(siteUrl),
+  title: { default: "DetaLabs AI", template: "%s | DetaLabs AI" },
   description:
-    "DetaLabs is a top AI SaaS company offering cutting-edge machine learning models, data science tools, automation platforms, and intelligent analytics for businesses.",
-  keywords:  "DetaLabs, AI SaaS, machine learning, ML tools, artificial intelligence, data science, DS SaaS, data analytics, predictive analytics, AI automation, cloud AI, AI software, SaaS platform, smart data tools, AI for business, data intelligence, deep learning, AI startup",
-  authors: [{ name: "DetaLabs AI" }],
+    "AI engineering, AI marketing, and web development from one team in Colombo, Sri Lanka.",
   openGraph: {
-    title: "DetaLabs AI - Machine Learning & AI Solutions",
-    description:
-      "Leading provider of machine learning models, data analytics, AI SaaS tools, and intelligent automation solutions.",
+    title: "DetaLabs AI",
+    description: "One team to build the AI, ship the product, and market it.",
     type: "website",
   },
-  icons: {
-    icon: "/logo.png",      // for most browsers
-    shortcut: "/logo.png",  // for Safari and others
-    apple: "/logo.png", // optional for Apple touch devices
-  },
-}
+  icons: { icon: "/logo.png", apple: "/logo.png" },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body
+        className={`${inter.className} ${inter.variable} ${manrope.variable} antialiased`}
+      >
         <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
-  )
+  );
 }

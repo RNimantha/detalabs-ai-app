@@ -5,6 +5,8 @@ import twilio from "twilio"
 const emailTransporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || "smtp.gmail.com",
   port: Number.parseInt(process.env.SMTP_PORT || "587"),
+  connectionTimeout: 10000,
+  socketTimeout: 10000,
   secure: false, // true for 465, false for other ports
   auth: {
     user: process.env.SMTP_USER,

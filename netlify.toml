@@ -17,6 +17,11 @@
 # - NEXT_PUBLIC_SUPABASE_ANON_KEY
 # - SUPABASE_SERVICE_ROLE_KEY
 #
+# Website lead forms (server-only):
+# - GOOGLE_LEADS_WEBHOOK_SECRET (must match Apps Script LEADS_WEBHOOK_SECRET)
+# - GOOGLE_LEADS_WEBHOOK_URL (optional override; deployed URL is in lib/google-leads.ts)
+# Google handles the sheet and both email notifications. SMTP below is optional
+# for other notification routes.
 # Optional notification variables:
 # - SMTP_HOST
 # - SMTP_PORT

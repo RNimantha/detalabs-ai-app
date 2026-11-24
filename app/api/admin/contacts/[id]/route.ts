@@ -7,7 +7,7 @@ import {
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get('admin_session')?.value
@@ -21,7 +21,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 
-    const { id } = params
+    const { id } = await params
     const body = await request.json()
     const { status } = body
 
@@ -45,7 +45,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get('admin_session')?.value
@@ -59,7 +59,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }
 
-    const { id } = params
+    const { id } = await params
     await deleteContactSubmission(id)
     return NextResponse.json({ message: 'Submission deleted successfully' })
   } catch (error) {

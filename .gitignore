@@ -25,3 +25,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Isolated local production verification
+/.next-preview/
+
+# Cloudflare build output and local secrets
+/.next-cloudflare/
+/.open-next/
+/.wrangler/
+.dev.vars*

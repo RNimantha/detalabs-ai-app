@@ -46,7 +46,7 @@ export default function AdminUploader() {
   const [mounted, setMounted] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const featuredImageInputRef = useRef<HTMLInputElement>(null)
-  const editorContainerRef = useRef<HTMLDivElement>(null)
+  const editorContainerRef = useRef<HTMLDivElement | null>(null)
   const editorKeyRef = useRef(0)
 
 

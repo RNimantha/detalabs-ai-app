@@ -6,7 +6,7 @@ import type { UpdateBlogInput } from "@/supabase/types"
 // GET - Get blog by ID (admin only)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get("admin_session")?.value
@@ -20,7 +20,7 @@ export async function GET(
       return NextResponse.json({ error: "Invalid session" }, { status: 401 })
     }
 
-    const blog = await getBlogById(params.id)
+    const blog = await getBlogById((await params).id)
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 })
     }
@@ -35,7 +35,7 @@ export async function GET(
 // PUT - Update blog (admin only)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get("admin_session")?.value
@@ -50,7 +50,7 @@ export async function PUT(
     }
 
     const body: UpdateBlogInput = await request.json()
-    const blog = await updateBlog(params.id, body)
+    const blog = await updateBlog((await params).id, body)
 
     return NextResponse.json({ blog })
   } catch (error: any) {
@@ -65,7 +65,7 @@ export async function PUT(
 // DELETE - Delete blog (admin only)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const sessionToken = request.cookies.get("admin_session")?.value
@@ -79,7 +79,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Invalid session" }, { status: 401 })
     }
 
-    await deleteBlog(params.id)
+    await deleteBlog((await params).id)
     return NextResponse.json({ message: "Blog deleted successfully" })
   } catch (error: any) {
     console.error("Error deleting blog:", error)

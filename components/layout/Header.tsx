@@ -1,143 +1,193 @@
-"use client"
-
-import { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Services", href: "/services" },
-  { name: "About", href: "/about" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
-]
+"use client";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { site, services } from "@/content/site";
+import { Container } from "@/components/marketing/shared";
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const pathname = usePathname()
+  const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
 
+  function closeDropdowns(except?: Element | null) {
+    headerRef.current
+      ?.querySelectorAll<HTMLDetailsElement>("details[open]")
+      .forEach((detail) => {
+        if (detail !== except) detail.open = false;
+      });
+  }
+
+  useEffect(() => {
+    setOpen(false);
+    closeDropdowns();
+  }, [pathname]);
+
+  useEffect(() => {
+    let pointerActive = false;
+    function endPointer() {
+      pointerActive = false;
+    }
+    function dismissOutside(event: Event) {
+      const target = event.target;
+      if (!(target instanceof Node)) return;
+      if (event.type === "pointerdown") pointerActive = true;
+      if (!headerRef.current?.contains(target)) {
+        closeDropdowns();
+        setOpen(false);
+        return;
+      }
+      // Keep mobile targets still until their click completes. Keyboard focus
+      // changes can safely dismiss a previous dropdown immediately.
+      if (pointerActive) return;
+      const detail =
+        target instanceof Element ? target.closest("details") : null;
+      closeDropdowns(detail);
+    }
+    function escape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      const focused = document.activeElement;
+      if (!focused || !headerRef.current?.contains(focused)) return;
+      const detail = focused.closest("details[open]");
+      closeDropdowns();
+      if (detail) detail.querySelector<HTMLElement>("summary")?.focus();
+      else {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
+    }
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("pointerup", endPointer);
+    document.addEventListener("pointercancel", endPointer);
+    document.addEventListener("focusin", dismissOutside);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("pointerup", endPointer);
+      document.removeEventListener("pointercancel", endPointer);
+      document.removeEventListener("focusin", dismissOutside);
+      document.removeEventListener("keydown", escape);
+    };
+  }, []);
   return (
-    <header className="bg-slate-900/90 border border-purple-500/20 shadow-lg shadow-purple-500/10 sticky top-0 z-50 mx-4 my-2 rounded-xl">
-      <nav className="relative mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-        {/* Company Logo and Name on the left */}
-        <div className="flex flex-shrink-0">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-3">
-            <Image
-              src="/logo.png"
-              alt="DetaLabs AI"
-              width={40}
-              height={40}
-              className="h-10 w-10 object-contain"
-              priority
-            />
-            <div className="flex flex-col">
-              <span className="text-xs font-normal text-cyan-400 leading-tight">Analytics By</span>
-              <span className="text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 leading-tight">
-                DetaLabs AI
-              </span>
-            </div>
+    <>
+      <a className="skip-link" href="#main-content">
+        {site.skip}
+      </a>
+      <header className="site-header" ref={headerRef}>
+        <Container>
+          <Link
+            href="/"
+            className="wordmark"
+            onClick={() => {
+              closeDropdowns();
+              setOpen(false);
+            }}
+            aria-label={site.name}
+          >
+            <span className="brand-mark" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            DetaLabs<span className="brand-ai">AI</span>
           </Link>
-        </div>
-
-        {/* Navigation links and button on the right */}
-        <div className="hidden md:flex md:items-center md:gap-x-8 lg:gap-x-12">
-          <div className="flex md:gap-x-6 lg:gap-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`text-sm font-semibold leading-6 transition-all duration-300 hover:text-cyan-400 whitespace-nowrap relative group ${
-                  pathname === item.href ? "text-cyan-400" : "text-gray-300"
-                }`}
-              >
-                {item.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
-          </div>
-          <Button href="/contact" variant="primary" className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 ml-4">
-            Get Started
-          </Button>
-        </div>
-        
-        {/* Mobile menu button */}
-        <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-300 hover:text-white"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Menu className="h-6 w-6" aria-hidden="true" />
-            </button>
-        </div>
-      </nav>
-      
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-50"></div>
-          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-slate-900/95 border-l border-purple-500/20 px-6 py-6 sm:max-w-sm rounded-l-xl">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-                <Image
-                  src="/logo.png"
-                  alt="DetaLabs AI"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 object-contain"
-                  priority
-                />
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-normal text-cyan-400 leading-tight">Analytics By</span>
-                  <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 leading-tight">
-                    DetaLabs AI
-                  </span>
-                </div>
-              </Link>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-300 hover:text-white"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <X className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/20">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
+          <button
+            className="mobile-toggle"
+            ref={toggleRef}
+            aria-expanded={open}
+            aria-controls="site-navigation"
+            aria-label={open ? site.menuClose : site.menuOpen}
+            onClick={() => {
+              closeDropdowns();
+              setOpen(!open);
+            }}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+          <nav
+            id="site-navigation"
+            className={`site-nav ${open ? "is-open" : ""}`}
+            aria-label="Main navigation"
+            onClick={(event) => {
+              if (!(event.target instanceof Element)) return;
+              const summary = event.target.closest("summary");
+              if (summary) closeDropdowns(summary.closest("details"));
+              if (event.target.closest("a")) {
+                closeDropdowns();
+                setOpen(false);
+              }
+            }}
+          >
+            <details className="services-dropdown">
+              <summary>
+                {site.servicesLabel}
+                <ChevronDown size={14} aria-hidden="true" />
+              </summary>
+              <div className="dropdown-panel">
+                {services.map((service) => (
+                  <Link
+                    href={`/services/${service.slug}`}
+                    key={service.slug}
+                    onClick={(event) => {
+                      setOpen(false);
+                      event.currentTarget
+                        .closest("details")
+                        ?.removeAttribute("open");
+                    }}
+                  >
+                    {service.title}
+                  </Link>
+                ))}
+              </div>
+            </details>
+            <details className="services-dropdown">
+              <summary>
+                {site.productsLabel}
+                <ChevronDown size={14} aria-hidden="true" />
+              </summary>
+              <div className="dropdown-panel">
+                {site.nav
+                  .filter((item) => item.href === "/products/stelvoice")
+                  .map((item) => (
                     <Link
-                      key={item.name}
+                      key={item.href}
                       href={item.href}
-                      className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-purple-500/20 transition-colors ${
-                        pathname === item.href ? "text-cyan-400" : "text-gray-300"
-                      }`}
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={(event) => {
+                        setOpen(false);
+                        event.currentTarget
+                          .closest("details")
+                          ?.removeAttribute("open");
+                      }}
                     >
-                      {item.name}
+                      {item.label}
                     </Link>
                   ))}
-                </div>
-                <div className="py-6">
-                  <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-                    <Button
-                      variant="primary"
-                      className="w-full bg-gradient-to-r from-cyan-500 to-blue-500"
-                    >
-                      Get Started
-                    </Button>
-                  </Link>
-                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </header>
-  )
+            </details>
+            {site.nav
+              .filter((item) => item.href !== "/products/stelvoice")
+              .map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            <Link
+              className="marketing-button nav-cta"
+              href="/contact"
+              onClick={() => setOpen(false)}
+            >
+              {site.consultation}
+            </Link>
+          </nav>
+        </Container>
+      </header>
+    </>
+  );
 }

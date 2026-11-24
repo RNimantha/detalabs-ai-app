@@ -1,0 +1,20 @@
+// Cloudflare Workers Builds (connect this repository under Workers, not Pages):
+// Build command: npm run build:cloudflare
+// Deploy command: npx wrangler deploy
+// Required runtime secret: GOOGLE_LEADS_WEBHOOK_SECRET (same value as Apps Script).
+// Blog/admin also need the three Supabase variables from the existing setup.
+// Local preview automatically loads .env.local; secret files must stay out of Git.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "detalabs-ai",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-11-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

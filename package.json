@@ -8,7 +8,12 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "validate-env": "node scripts/validate-env.js"
+    "validate-env": "node scripts/validate-env.js",
+    "test:leads": "node --test integrations/google-apps-script/Code.test.cjs scripts/test-google-leads-integration.cjs",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
+    "preview:cloudflare": "wrangler dev --port 3003",
+    "deploy:cloudflare": "npm run build:cloudflare && wrangler deploy",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
@@ -54,7 +59,7 @@
     "gsap": "^3.13.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
-    "next": "14.2.16",
+    "next": "15.5.29",
     "next-themes": "^0.4.4",
     "nodemailer": "^6.9.8",
     "ogl": "^1.0.11",
@@ -71,7 +76,8 @@
     "tailwindcss-animate": "^1.0.7",
     "twilio": "^4.19.3",
     "vaul": "^0.9.6",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "@opennextjs/cloudflare": "1.20.18"
   },
   "devDependencies": {
     "@netlify/plugin-nextjs": "^5.11.6",
@@ -80,8 +86,13 @@
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "15.5.29",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
-  }
+    "typescript": "^5",
+    "wrangler": "4.148.0",
+    "rclone.js": "0.6.6"
+  },
+  "packageManager": "npm@10.9.2"
 }
