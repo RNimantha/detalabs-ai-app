@@ -14,13 +14,15 @@ export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const service = services.find((s) => s.slug === (await params).slug);
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   return service
     ? pageMetadata(service.title, serviceDetails[service.slug].description)
     : {};
 }
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
-  const service = services.find((s) => s.slug === (await params).slug);
+  const { slug } = await params;
+  const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
   const details = serviceDetails[service.slug];
   return (

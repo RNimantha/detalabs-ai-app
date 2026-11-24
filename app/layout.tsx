@@ -26,7 +26,13 @@ export const metadata: Metadata = {
     description: "One team to build the AI, ship the product, and market it.",
     type: "website",
   },
-  icons: { icon: "/logo.png", apple: "/logo.png" },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

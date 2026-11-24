@@ -46,7 +46,7 @@ export default function AboutPage() {
                     src={person.image}
                     alt={person.name}
                     fill
-                    sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1264px) 45vw, 588px"
+                    sizes="72px"
                   />
                 </div>
                 <div className="leadership-copy">

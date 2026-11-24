@@ -1,7 +1,8 @@
 import { spawnSync } from "node:child_process";
 
-// Use a separate Next output directory so an open local dev server cannot
-// overwrite production files while OpenNext assembles the Worker.
+// OpenNext reads the Next.js build from the default ".next" directory, so the
+// build must not override distDir. Stop any local `next dev` server first, as
+// it writes to the same directory.
 const build = spawnSync(
   process.execPath,
   ["node_modules/@opennextjs/cloudflare/dist/cli/index.js", "build"],
@@ -9,7 +10,6 @@ const build = spawnSync(
     stdio: "inherit",
     env: {
       ...process.env,
-      DETALABS_NEXT_DIST_DIR: ".next-cloudflare",
       CLOUDFLARE_BUILD: "1",
     },
   },
